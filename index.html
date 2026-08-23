@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo ĐGNL Lần 1 – KS24 & KS25 CNTT</title>
+    <meta name="description" content="Hệ thống báo cáo phân tích kết quả Đánh giá Năng lực Lần 1 dành cho sinh viên KS24 và KS25 Công nghệ Thông tin.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main:       #09090b;
+            --bg-card:       #18181b;
+            --bg-card2:      #1c1c1f;
+            --border-color:  #27272a;
+            --text-primary:  #f4f4f5;
+            --text-secondary:#a1a1aa;
+            --text-muted:    #71717a;
+            --color-primary: #3b82f6;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger:  #ef4444;
+            --color-purple:  #8b5cf6;
+            --color-ks24:    #10b981;
+            --color-ks25:    #3b82f6;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+        body {
+            background: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: rgba(18,18,21,0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 200;
+        }
+        .header-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .logo-badge {
+            background: linear-gradient(135deg, var(--color-ks24), var(--color-ks25));
+            color: #fff; width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem;
+            box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+            flex-shrink: 0;
+        }
+        .logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; }
+        .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* ── Hero ── */
+        .hero {
+            max-width: 1100px; margin: 0 auto;
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 400px;
+            background: radial-gradient(ellipse at center, rgba(59,130,246,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.25);
+            color: var(--color-primary);
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+            padding: 0.35rem 1rem; border-radius: 999px; margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800; line-height: 1.15;
+            background: linear-gradient(135deg, #f4f4f5 30%, #a1a1aa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.05rem; color: var(--text-secondary);
+            max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;
+        }
+        .hero-meta {
+            display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+            font-size: 0.82rem; color: var(--text-muted);
+        }
+
+        /* ── Stats row ── */
+        .stats-row {
+            max-width: 1100px; margin: 0 auto;
+            padding: 0 2rem 3rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px; padding: 1.25rem 1.5rem;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .stat-card:hover { border-color: #3f3f46; transform: translateY(-2px); }
+        .stat-value {
+            font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--color-ks24), var(--color-ks25));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        /* ── Section label ── */
+        .section-label {
+            max-width: 1100px; margin: 0 auto 2rem;
+            padding: 0 2rem 1.25rem;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* ── Report Cards ── */
+        .cards-grid {
+            max-width: 1100px; margin: 0 auto;
+            padding: 0 2rem 5rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+        }
+        .report-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px; overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .report-card:hover {
+            border-color: #52525b;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .card-header {
+            padding: 1.5rem 1.5rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+        .card-header::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+        .card-tag {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 6px;
+            margin-bottom: 0.85rem;
+            background: color-mix(in srgb, var(--accent) 15%, transparent);
+            color: var(--accent);
+            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+        }
+        .card-title {
+            font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 700;
+            line-height: 1.35; margin-bottom: 0.5rem;
+        }
+        .card-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .card-body { padding: 1.25rem 1.5rem; flex: 1; }
+        .card-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+        .card-features li {
+            display: flex; align-items: center; gap: 0.6rem;
+            font-size: 0.83rem; color: var(--text-secondary);
+        }
+        .card-features li .dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent); flex-shrink: 0;
+        }
+        .card-footer {
+            padding: 1.1rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .card-size { font-size: 0.75rem; color: var(--text-muted); }
+        .btn-open {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            background: var(--accent); color: #fff;
+            font-size: 0.82rem; font-weight: 600;
+            padding: 0.5rem 1.1rem; border-radius: 8px;
+            transition: opacity 0.15s, transform 0.15s;
+        }
+        .btn-open:hover { opacity: 0.85; transform: scale(0.97); }
+
+        /* Card accent colors */
+        .card-exec  { --accent: #8b5cf6; }
+        .card-ks24  { --accent: #10b981; }
+        .card-ks25  { --accent: #3b82f6; }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            font-size: 0.78rem; color: var(--text-muted);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .hero { padding: 3rem 1.5rem 2rem; }
+            .stats-row, .cards-grid { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero { animation: fadeUp 0.6s ease both; }
+        .stats-row { animation: fadeUp 0.6s ease 0.1s both; }
+        .cards-grid { animation: fadeUp 0.6s ease 0.2s both; }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-inner">
+        <div class="logo-badge">&#272;N</div>
+        <div>
+            <div class="logo-text">&#272;GNL Analytics</div>
+            <div class="logo-sub">H&#7879; th&#7889;ng ph&#226;n t&#237;ch k&#7871;t qu&#7843; &#273;&#225;nh gi&#225; n&#259;ng l&#7921;c</div>
+        </div>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-badge">
+        &#9679; K&#7871;t qu&#7843; &#272;GNL L&#7847;n 1 &middot; 2025
+    </div>
+    <h1>B&#225;o c&#225;o &#272;&#225;nh gi&#225; N&#259;ng l&#7921;c<br>KS24 &amp; KS25 CNTT</h1>
+    <p>Ph&#226;n t&#237;ch chuy&#234;n s&#226;u k&#7871;t qu&#7843; &#272;GNL L&#7847;n 1 d&#224;nh cho sinh vi&#234;n ng&#224;nh C&#244;ng ngh&#7879; Th&#244;ng tin &#8211; kh&#243;a KS24 (Java/Spring) v&#224; KS25 (FastAPI/Python).</p>
+    <div class="hero-meta">
+        <span>&#128197; Th&#225;ng 8, 2025</span>
+        <span>&#128101; KS24 &middot; KS25</span>
+        <span>&#128202; 3 b&#225;o c&#225;o</span>
+    </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Kh&#243;a h&#7885;c ph&#226;n t&#237;ch</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">KS24</div>
+        <div class="stat-label">Java / Spring Boot</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">KS25</div>
+        <div class="stat-label">FastAPI / Python</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">&#272;GNL</div>
+        <div class="stat-label">&#272;&#225;nh gi&#225; N&#259;ng l&#7921;c L&#7847;n 1</div>
+    </div>
+</div>
+
+<!-- Section label -->
+<div class="section-label">&#128196; Danh s&#225;ch b&#225;o c&#225;o</div>
+
+<!-- Cards -->
+<div class="cards-grid">
+
+    <!-- Executive Summary -->
+    <a href="Executive_Summary_DGNL_Report.html" class="report-card card-exec" id="card-executive">
+        <div class="card-header">
+            <div class="card-tag">&#9889; T&#7893;ng h&#7907;p</div>
+            <div class="card-title">Executive Summary</div>
+            <div class="card-desc">B&#225;o c&#225;o t&#7893;ng h&#7907;p d&#224;nh cho Gi&#225;m &#273;&#7889;c &#272;&#224;o t&#7841;o &#8211; so s&#225;nh KS24 v&#224; KS25, xu h&#432;&#7899;ng v&#224; khuy&#7871;n ngh&#7883; chi&#7871;n l&#432;&#7907;c.</div>
+        </div>
+        <div class="card-body">
+            <ul class="card-features">
+                <li><span class="dot"></span>So s&#225;nh t&#7893;ng quan KS24 vs KS25</li>
+                <li><span class="dot"></span>Bi&#7875;u &#273;&#7891; ph&#226;n ph&#7889;i &#273;i&#7875;m t&#7893;ng h&#7907;p</li>
+                <li><span class="dot"></span>Ph&#226;n t&#237;ch theo nh&#243;m v&#224; m&#244;n h&#7885;c</li>
+                <li><span class="dot"></span>Khuy&#7871;n ngh&#7883; c&#7843;i thi&#7879;n ch&#432;&#417;ng tr&#236;nh</li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <span class="card-size">~40 KB &middot; HTML</span>
+            <span class="btn-open">Xem b&#225;o c&#225;o &#8594;</span>
+        </div>
+    </a>
+
+    <!-- KS24 Report -->
+    <a href="KS24_DGNL_Report.html" class="report-card card-ks24" id="card-ks24">
+        <div class="card-header">
+            <div class="card-tag">&#129001; KS24</div>
+            <div class="card-title">B&#225;o c&#225;o Chi ti&#7871;t KS24</div>
+            <div class="card-desc">Ph&#226;n t&#237;ch s&#226;u k&#7871;t qu&#7843; &#272;GNL kh&#243;a KS24 &#8211; Java/Spring Boot, bao g&#7891;m ph&#226;n t&#237;ch t&#7915;ng l&#7899;p v&#224; t&#7915;ng m&#244;n h&#7885;c.</div>
+        </div>
+        <div class="card-body">
+            <ul class="card-features">
+                <li><span class="dot"></span>Ph&#226;n t&#237;ch chi ti&#7871;t theo l&#7899;p</li>
+                <li><span class="dot"></span>Ph&#226;n ph&#7889;i &#273;i&#7875;m t&#7915;ng m&#244;n</li>
+                <li><span class="dot"></span>Bi&#7875;u &#273;&#7891; t&#432;&#417;ng t&#225;c &#273;&#7847;y &#273;&#7911;</li>
+                <li><span class="dot"></span>Nh&#7853;n di&#7879;n sinh vi&#234;n c&#7847;n h&#7895; tr&#7907;</li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <span class="card-size">~1.3 MB &middot; HTML</span>
+            <span class="btn-open">Xem b&#225;o c&#225;o &#8594;</span>
+        </div>
+    </a>
+
+    <!-- KS25 Report -->
+    <a href="KS25_DGNL_Report.html" class="report-card card-ks25" id="card-ks25">
+        <div class="card-header">
+            <div class="card-tag">&#128309; KS25</div>
+            <div class="card-title">B&#225;o c&#225;o Chi ti&#7871;t KS25</div>
+            <div class="card-desc">Ph&#226;n t&#237;ch s&#226;u k&#7871;t qu&#7843; &#272;GNL kh&#243;a KS25 &#8211; FastAPI/Python, bao g&#7891;m ph&#226;n t&#237;ch t&#7915;ng l&#7899;p v&#224; t&#7915;ng m&#244;n h&#7885;c.</div>
+        </div>
+        <div class="card-body">
+            <ul class="card-features">
+                <li><span class="dot"></span>Ph&#226;n t&#237;ch chi ti&#7871;t theo l&#7899;p</li>
+                <li><span class="dot"></span>Ph&#226;n ph&#7889;i &#273;i&#7875;m t&#7915;ng m&#244;n</li>
+                <li><span class="dot"></span>Bi&#7875;u &#273;&#7891; t&#432;&#417;ng t&#225;c &#273;&#7847;y &#273;&#7911;</li>
+                <li><span class="dot"></span>Nh&#7853;n di&#7879;n sinh vi&#234;n c&#7847;n h&#7895; tr&#7907;</li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <span class="card-size">~382 KB &middot; HTML</span>
+            <span class="btn-open">Xem b&#225;o c&#225;o &#8594;</span>
+        </div>
+    </a>
+
+</div>
+
+<footer>
+    H&#7879; th&#7889;ng b&#225;o c&#225;o &#272;GNL &middot; KS24 &amp; KS25 CNTT &middot; 2025
+</footer>
+
+</body>
+</html>
