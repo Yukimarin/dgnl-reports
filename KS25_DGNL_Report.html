@@ -649,7 +649,7 @@
                             </div>
                         </div>
                         <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;">
-                            (*) Hà Nội có 177 SV vắng thi / lỗi nộp bài (63.7% vắng) do sự cố sập hệ thống khảo thí.
+                            (*) Hà Nội có 177/278 SV không có dữ liệu điểm CNTT (63.7%): trong đó <strong style="color:#f87171">~70 SV đã có mặt (điểm danh = 1) nhưng mất bài do sự cố hệ thống</strong> ca 07:00-09:00 ngày 10/8; ~107 SV vắng thực sự. Đây là lỗi hạ tầng, không phản ánh năng lực học thuật.
                         </div>
                     </div>
                     
@@ -835,15 +835,15 @@
                         <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
                             <div style="display: flex; justify-content: space-between;">
                                 <span>1️⃣ Tư duy Logic & Thuật toán (Tiêu chí 1.x):</span>
-                                <strong style="color: var(--color-primary);">87.3% Trượt</strong>
+                                <strong style="color: var(--color-primary);">88.6% Trượt</strong>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
                                 <span>2️⃣ Cấu trúc dữ liệu & ORM Framework (Tiêu chí 2.x, 3.x):</span>
-                                <strong style="color: var(--color-warning);">83.4% Trượt</strong>
+                                <strong style="color: var(--color-warning);">84.8% Trượt</strong>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
                                 <span>3️⃣ Logic nghiệp vụ & API Endpoint (Tiêu chí 4.x):</span>
-                                <strong style="color: var(--color-danger);">90.7% Trượt</strong>
+                                <strong style="color: var(--color-danger);">92.1% Trượt</strong>
                             </div>
                         </div>
                     </div>
@@ -852,6 +852,26 @@
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
                 <span style="color: var(--text-primary);">4.2 - API POST bẫy lỗi logic (trùng/404)</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 95.3% (409/429)</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: var(--color-danger); width: 95.3%; height: 100%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span style="color: var(--text-primary);">4.3 - API GET truy vấn kèm quan hệ bảng</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 94.2% (404/429)</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: var(--color-danger); width: 94.2%; height: 100%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span style="color: var(--text-primary);">4.4 - API DELETE ràng buộc toàn vẹn</span>
                 <span style="color: var(--color-danger); font-weight: 700;">Trượt: 93.9% (403/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
@@ -861,37 +881,37 @@
         
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <span style="color: var(--text-primary);">4.3 - API GET truy vấn kèm quan hệ bảng</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 92.8% (398/429)</span>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 92.8%; height: 100%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        
-        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <span style="color: var(--text-primary);">4.4 - API DELETE ràng buộc toàn vẹn</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 92.8% (398/429)</span>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 92.8%; height: 100%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        
-        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
                 <span style="color: var(--text-primary);">2.2 - Schema RoomResponse & response_model</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 88.3% (379/429)</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 89.7% (385/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 88.3%; height: 100%; border-radius: 4px;"></div>
+                <div style="background: var(--color-danger); width: 89.7%; height: 100%; border-radius: 4px;"></div>
             </div>
         </div>
         
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
                 <span style="color: var(--text-primary);">1.2 - Thuật toán Linear Search lọc điều kiện</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 89.3% (383/429)</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: var(--color-danger); width: 89.3%; height: 100%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span style="color: var(--text-primary);">1.1 - Chuẩn hóa & Validate dữ liệu thô</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 89.0% (382/429)</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: var(--color-danger); width: 89.0%; height: 100%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span style="color: var(--text-primary);">3.2 - SQLAlchemy Models quan hệ 1-N</span>
                 <span style="color: var(--color-danger); font-weight: 700;">Trượt: 87.9% (377/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
@@ -901,7 +921,7 @@
         
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <span style="color: var(--text-primary);">1.1 - Chuẩn hóa & Validate dữ liệu thô</span>
+                <span style="color: var(--text-primary);">1.3 - Thuật toán Bubble Sort sắp xếp giảm dần</span>
                 <span style="color: var(--color-danger); font-weight: 700;">Trượt: 87.6% (376/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
@@ -911,51 +931,31 @@
         
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <span style="color: var(--text-primary);">3.2 - SQLAlchemy Models quan hệ 1-N</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 86.5% (371/429)</span>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 86.5%; height: 100%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        
-        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <span style="color: var(--text-primary);">1.3 - Thuật toán Bubble Sort sắp xếp giảm dần</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 86.2% (370/429)</span>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 86.2%; height: 100%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        
-        <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
                 <span style="color: var(--text-primary);">2.1 - Schema RoomCreate (Pydantic)</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 84.4% (362/429)</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 85.8% (368/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 84.4%; height: 100%; border-radius: 4px;"></div>
+                <div style="background: var(--color-danger); width: 85.8%; height: 100%; border-radius: 4px;"></div>
             </div>
         </div>
         
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
                 <span style="color: var(--text-primary);">4.1 - Phân tầng cấu trúc thư mục 4 lớp</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 83.4% (358/429)</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 84.8% (364/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 83.4%; height: 100%; border-radius: 4px;"></div>
+                <div style="background: var(--color-danger); width: 84.8%; height: 100%; border-radius: 4px;"></div>
             </div>
         </div>
         
         <div style="font-size: 0.82rem; margin-bottom: 0.25rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
                 <span style="color: var(--text-primary);">3.1 - database.py & dependency get_db() yield</span>
-                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 74.4% (319/429)</span>
+                <span style="color: var(--color-danger); font-weight: 700;">Trượt: 75.8% (325/429)</span>
             </div>
             <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                <div style="background: var(--color-danger); width: 74.4%; height: 100%; border-radius: 4px;"></div>
+                <div style="background: var(--color-danger); width: 75.8%; height: 100%; border-radius: 4px;"></div>
             </div>
         </div>
         
@@ -969,7 +969,7 @@
                             <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem;">
                                 <div style="background: rgba(239, 68, 68, 0.03); border: 1px solid rgba(239, 68, 68, 0.1); padding: 0.75rem 1rem; border-radius: 6px;">
                                     <strong style="color: var(--color-danger); font-size: 0.85rem;">🔴 Nguyên nhân Hạ tầng (Lỗi cục bộ đợt 1):</strong>
-                                    <p style="font-size: 0.8rem; margin-top: 0.25rem;">Hệ thống khảo thí bị quá tải server trong ca 7h-9h ngày 10/8, khiến 177/278 sinh viên Hà Nội không thể nộp bài hoặc bị mất bài (chiếm 63.7% vắng thi kỹ thuật). Kết quả điểm số Hà Nội thực tế bị nhiễu do lỗi hệ thống.</p>
+                                    <p style="font-size: 0.8rem; margin-top: 0.25rem;">Hệ thống khảo thí bị quá tải server trong ca 7h-9h ngày 10/8 khiến 177/278 SV HN (63.7%) không có dữ liệu điểm CNTT. Phân tích dữ liệu gốc xác định: <strong>~70 SV đã điểm danh có mặt (P1=1) nhưng mất bài do sự cố hệ thống</strong> (67/70 thuộc ca 07:00–09:00); ~107 SV vắng thực sự. Đây là lỗi hạ tầng, không phản ánh năng lực học thuật của SV.</p>
                                 </div>
                                 <div style="background: rgba(245, 158, 11, 0.03); border: 1px solid rgba(245, 158, 11, 0.1); padding: 0.75rem 1rem; border-radius: 6px;">
                                     <strong style="color: var(--color-warning); font-size: 0.85rem;">🟡 Điểm nghẽn Logic & Ánh xạ ORM:</strong>
