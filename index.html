@@ -3,354 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Báo cáo ĐGNL Lần 1 – KS24 & KS25 CNTT</title>
-    <meta name="description" content="Hệ thống báo cáo phân tích kết quả Đánh giá Năng lực Lần 1 dành cho sinh viên KS24 và KS25 Công nghệ Thông tin.">
+    <title>Cổng Báo Cáo Khảo Thí ĐGNL | PTIT Rikkei Education</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-main:       #09090b;
-            --bg-card:       #18181b;
-            --bg-card2:      #1c1c1f;
-            --border-color:  #27272a;
-            --text-primary:  #f4f4f5;
-            --text-secondary:#a1a1aa;
-            --text-muted:    #71717a;
-            --color-primary: #3b82f6;
-            --color-success: #10b981;
-            --color-warning: #f59e0b;
-            --color-danger:  #ef4444;
-            --color-purple:  #8b5cf6;
-            --color-ks24:    #10b981;
-            --color-ks25:    #3b82f6;
-        }
+        
+    :root {
+        --bg-body:       #0c0d10;
+        --bg-surface:    #14151a;
+        --bg-surface-elevated: #1a1b22;
+        --bg-card:       #171820;
+        --border-subtle: #242632;
+        --border-focus:  #36394a;
+        --text-main:     #f8fafc;
+        --text-muted:    #94a3b8;
+        --text-dim:      #64748b;
+        --color-pri:     #3b82f6;
+        --color-acc:     #8b5cf6;
+        --color-ks24:    #10b981;
+        --color-ks25:    #3b82f6;
+        --color-qtkd:    #f59e0b;
+        --color-danger:  #f43f5e;
+        --color-success: #10b981;
+        --color-warning: #f59e0b;
+        --radius-sm:     6px;
+        --radius-md:     10px;
+        --radius-lg:     14px;
+        --font-main:     'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-heading:  'Outfit', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+    body { background: var(--bg-body); color: var(--text-main); line-height: 1.5; padding-bottom: 80px; -webkit-font-smoothing: antialiased; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    /* ── HEADER ── */
+    .header {
+        background: rgba(18, 19, 26, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-subtle);
+        position: sticky; top: 0; z-index: 300;
+    }
+    .header-inner {
+        max-width: 1440px; margin: 0 auto; padding: 0.9rem 2rem;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.85rem; }
+    .logo-badge {
+        background: linear-gradient(135deg, var(--color-pri), var(--color-acc));
+        color: #fff; width: 42px; height: 42px; border-radius: var(--radius-md);
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .logo-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.12rem; color: #fff; letter-spacing: -0.2px; }
+    .logo-sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 1px; }
+    .header-meta { font-size: 0.76rem; color: var(--text-dim); text-align: right; line-height: 1.35; }
 
-        body {
-            background: var(--bg-main);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    /* ── CONTAINER ── */
+    .container { max-width: 1440px; margin: 1.75rem auto; padding: 0 2rem; }
 
-        /* ── Header ── */
-        .header {
-            background: rgba(18,18,21,0.85);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 200;
-        }
-        .header-inner {
-            max-width: 1100px; margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex; align-items: center; gap: 1rem;
-        }
-        .logo-badge {
-            background: linear-gradient(135deg, var(--color-ks24), var(--color-ks25));
-            color: #fff; width: 40px; height: 40px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem;
-            box-shadow: 0 4px 16px rgba(59,130,246,0.3);
-            flex-shrink: 0;
-        }
-        .logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; }
-        .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
+    /* ── TABS ── */
+    .nav-tabs-wrapper {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 0.35rem;
+        margin-bottom: 2rem;
+        display: inline-flex;
+        gap: 0.25rem;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .nav-tab-btn {
+        background: transparent; border: none; color: var(--text-muted);
+        font-family: var(--font-heading); font-size: 0.88rem; font-weight: 600;
+        padding: 0.6rem 1.25rem; border-radius: var(--radius-md); cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+    }
+    .nav-tab-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.04); }
+    .nav-tab-btn.active {
+        color: #fff; background: var(--bg-surface-elevated);
+        border: 1px solid var(--border-focus);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
 
-        /* ── Hero ── */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeInUp 0.3s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── KPI BENTO STRIP ── */
+    .kpi-grid {
+        display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-bottom: 2rem;
+    }
+    .kpi-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.15rem 1.25rem;
+        position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover { transform: translateY(-2px); border-color: var(--border-focus); }
+    .kpi-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: var(--kpi-accent, var(--color-pri));
+    }
+    .kpi-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-dim); margin-bottom: 0.35rem; font-weight: 700; }
+    .kpi-value { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1.1; }
+    .kpi-sub   { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem; font-weight: 500; }
+
+    /* ── SECTION HEADINGS ── */
+    .section-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;
+    }
+    .section-title {
+        font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;
+        color: #fff; display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.2px;
+    }
+    .section-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+    /* ── BENTO CARD BASE ── */
+    .bento-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.75rem;
+    }
+
+    /* ── BOTTLENECK ALERT BANNER ── */
+    .bottleneck-banner {
+        background: linear-gradient(180deg, rgba(244,63,94,0.08) 0%, rgba(244,63,94,0.02) 100%);
+        border: 1px solid rgba(244,63,94,0.35); border-radius: var(--radius-lg);
+        padding: 1.5rem; margin-bottom: 2rem;
+    }
+    .bottleneck-title {
+        font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #fb7185;
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .bottleneck-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .bottleneck-cell {
+        background: rgba(12, 13, 16, 0.6); border: 1px solid rgba(244,63,94,0.2);
+        border-radius: var(--radius-md); padding: 1rem; display: flex; flex-direction: column;
+    }
+    .bottleneck-cell strong { font-size: 0.84rem; color: #fff; margin-bottom: 0.35rem; display: block; }
+    .bottleneck-cell p { font-size: 0.77rem; color: var(--text-muted); line-height: 1.45; margin-top: auto; }
+
+    /* ── CURRICULUM BENTO CARDS (REDESIGNED) ── */
+    .curric-bento-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;
+    }
+    .curric-cohort-card {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .curric-cohort-header {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle);
+    }
+    .cohort-badge-tag {
+        display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem;
+        border-radius: 999px; font-size: 0.75rem; font-weight: 700; font-family: var(--font-heading);
+    }
+    .cohort-badge-tag.ks24 { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .cohort-badge-tag.ks25 { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .cohort-badge-tag.qtkd { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+    /* Subject Item Card */
+    .subject-item-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 1.15rem; transition: border-color 0.2s;
+    }
+    .subject-item-card:hover { border-color: var(--border-focus); }
+    .subject-item-top {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;
+    }
+    .subject-code {
+        font-family: var(--font-heading); font-size: 0.82rem; font-weight: 700; color: #fff;
+        display: flex; align-items: center; gap: 0.4rem;
+    }
+    .credit-tag {
+        background: rgba(255,255,255,0.06); color: var(--text-muted);
+        font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600;
+    }
+    .action-tag {
+        font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .action-tag.core { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .action-tag.sec  { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .action-tag.ai   { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .action-tag.reduce { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+    .subject-feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .subject-feature-list li {
+        font-size: 0.78rem; color: var(--text-muted); line-height: 1.45;
+        display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .subject-feature-list li strong { color: var(--text-main); font-weight: 600; }
+    .subject-feature-list li::before {
+        content: '✓'; color: var(--color-ks24); font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .subject-feature-list.blue li::before { color: var(--color-ks25); }
+    .subject-feature-list.gold li::before { color: var(--color-qtkd); }
+
+    /* Elective VIP Box */
+    .elective-vip-card {
+        background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.04) 100%);
+        border: 1px solid rgba(139,92,246,0.35); border-radius: var(--radius-lg);
+        padding: 1.25rem 1.5rem; margin-top: 0.5rem;
+    }
+    .elective-vip-title {
+        font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #c084fc;
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem;
+    }
+    .elective-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .elective-item {
+        background: rgba(12, 13, 16, 0.7); border: 1px solid rgba(139,92,246,0.25);
+        border-radius: var(--radius-md); padding: 1rem;
+    }
+    .elective-item strong { font-size: 0.84rem; color: #fff; display: block; margin-bottom: 0.35rem; }
+    .elective-item p { font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; }
+
+    /* ── TABLES ── */
+    .table-wrapper { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .data-table th, .data-table td { padding: 0.75rem 0.9rem; text-align: center; border-bottom: 1px solid var(--border-subtle); }
+    .data-table th {
+        background: var(--bg-surface-elevated); color: var(--text-muted);
+        font-family: var(--font-heading); font-weight: 600; font-size: 0.72rem;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Badges */
+    .badge {
+        display: inline-flex; align-items: center; gap: 0.25rem;
+        padding: 0.2rem 0.6rem; border-radius: 999px;
+        font-size: 0.72rem; font-weight: 700; line-height: 1.3;
+    }
+    .badge.pass { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge.lvl-3 { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .badge.lvl-2 { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge.lvl-1 { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .badge.lvl-0 { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+
+    /* Filter Bar */
+    .filter-bar {
+        display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        padding: 0.85rem 1rem; border-radius: var(--radius-lg); align-items: center;
+    }
+    .filter-input, .filter-select {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        color: #fff; padding: 0.55rem 0.85rem; border-radius: var(--radius-md);
+        font-size: 0.82rem; outline: none; transition: border-color 0.2s;
+    }
+    .filter-input:focus, .filter-select:focus { border-color: var(--color-pri); }
+
+    /* Footer */
+    .footer-bar {
+        margin-top: 3.5rem; border-top: 1px solid var(--border-subtle);
+        padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.76rem; color: var(--text-dim);
+    }
+    .footer-bar a { color: var(--color-pri); text-decoration: none; font-weight: 600; }
+    
         .hero {
-            max-width: 1100px; margin: 0 auto;
-            padding: 5rem 2rem 3rem;
             text-align: center;
-            position: relative;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 400px;
-            background: radial-gradient(ellipse at center, rgba(59,130,246,0.12) 0%, transparent 70%);
-            pointer-events: none;
+            padding: 3rem 1rem 2.5rem 1rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .hero-badge {
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            background: rgba(59,130,246,0.1);
-            border: 1px solid rgba(59,130,246,0.25);
-            color: var(--color-primary);
-            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-            padding: 0.35rem 1rem; border-radius: 999px; margin-bottom: 1.5rem;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3);
+            padding: 0.35rem 0.9rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700;
+            margin-bottom: 1.25rem; font-family: var(--font-heading);
         }
-        .hero h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            font-weight: 800; line-height: 1.15;
-            background: linear-gradient(135deg, #f4f4f5 30%, #a1a1aa);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
+        .hero-title {
+            font-family: var(--font-heading); font-size: 2.35rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 0.85rem;
         }
-        .hero p {
-            font-size: 1.05rem; color: var(--text-secondary);
-            max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;
+        .hero-desc {
+            font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;
         }
-        .hero-meta {
-            display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
-            font-size: 0.82rem; color: var(--text-muted);
+        .portal-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto 3rem auto;
         }
-
-        /* ── Stats row ── */
-        .stats-row {
-            max-width: 1100px; margin: 0 auto;
-            padding: 0 2rem 3rem;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;
+        .portal-card {
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg); padding: 1.75rem; text-decoration: none;
+            color: inherit; display: flex; flex-direction: column; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
         }
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 1.25rem 1.5rem;
-            text-align: center;
-            transition: border-color 0.2s, transform 0.2s;
+        .portal-card:hover {
+            transform: translateY(-4px); border-color: var(--border-focus);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
         }
-        .stat-card:hover { border-color: #3f3f46; transform: translateY(-2px); }
-        .stat-value {
-            font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--color-ks24), var(--color-ks25));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .portal-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--card-accent, #3b82f6);
         }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
-
-        /* ── Section label ── */
-        .section-label {
-            max-width: 1100px; margin: 0 auto 2rem;
-            padding: 0 2rem 1.25rem;
-            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-            text-transform: uppercase; color: var(--text-muted);
-            border-bottom: 1px solid var(--border-color);
+        .portal-icon {
+            width: 48px; height: 48px; border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1.25rem;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);
         }
-
-        /* ── Report Cards ── */
-        .cards-grid {
-            max-width: 1100px; margin: 0 auto;
-            padding: 0 2rem 5rem;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+        .portal-card-title {
+            font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: #fff;
+            margin-bottom: 0.4rem; display: flex; align-items: center; justify-content: space-between;
         }
-        .report-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px; overflow: hidden;
-            display: flex; flex-direction: column;
-            transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
+        .portal-card-desc {
+            font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem;
         }
-        .report-card:hover {
-            border-color: #52525b;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        .portal-meta {
+            margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-subtle);
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: var(--text-dim);
         }
-        .card-header {
-            padding: 1.5rem 1.5rem 1.25rem;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
+        .portal-btn-text {
+            color: var(--card-accent, #3b82f6); font-weight: 700; display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem;
         }
-        .card-header::after {
-            content: '';
-            position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-            background: var(--accent);
-            opacity: 0.6;
-        }
-        .card-tag {
-            display: inline-flex; align-items: center; gap: 0.35rem;
-            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-            text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 6px;
-            margin-bottom: 0.85rem;
-            background: color-mix(in srgb, var(--accent) 15%, transparent);
-            color: var(--accent);
-            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-        }
-        .card-title {
-            font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 700;
-            line-height: 1.35; margin-bottom: 0.5rem;
-        }
-        .card-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
-        .card-body { padding: 1.25rem 1.5rem; flex: 1; }
-        .card-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-        .card-features li {
-            display: flex; align-items: center; gap: 0.6rem;
-            font-size: 0.83rem; color: var(--text-secondary);
-        }
-        .card-features li .dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--accent); flex-shrink: 0;
-        }
-        .card-footer {
-            padding: 1.1rem 1.5rem;
-            border-top: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .card-size { font-size: 0.75rem; color: var(--text-muted); }
-        .btn-open {
-            display: inline-flex; align-items: center; gap: 0.45rem;
-            background: var(--accent); color: #fff;
-            font-size: 0.82rem; font-weight: 600;
-            padding: 0.5rem 1.1rem; border-radius: 8px;
-            transition: opacity 0.15s, transform 0.15s;
-        }
-        .btn-open:hover { opacity: 0.85; transform: scale(0.97); }
-
-        /* Card accent colors */
-        .card-exec  { --accent: #8b5cf6; }
-        .card-ks24  { --accent: #10b981; }
-        .card-ks25  { --accent: #3b82f6; }
-
-        /* ── Footer ── */
-        footer {
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
-            text-align: center;
-            font-size: 0.78rem; color: var(--text-muted);
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 640px) {
-            .hero { padding: 3rem 1.5rem 2rem; }
-            .stats-row, .cards-grid { padding-left: 1.5rem; padding-right: 1.5rem; }
-        }
-
-        /* ── Animations ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .hero { animation: fadeUp 0.6s ease both; }
-        .stats-row { animation: fadeUp 0.6s ease 0.1s both; }
-        .cards-grid { animation: fadeUp 0.6s ease 0.2s both; }
     </style>
 </head>
 <body>
 
-<!-- Header -->
-<header class="header">
-    <div class="header-inner">
-        <div class="logo-badge">&#272;N</div>
-        <div>
-            <div class="logo-text">&#272;GNL Analytics</div>
-            <div class="logo-sub">H&#7879; th&#7889;ng ph&#226;n t&#237;ch k&#7871;t qu&#7843; &#273;&#225;nh gi&#225; n&#259;ng l&#7921;c</div>
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo-wrap">
+                <div class="logo-badge">RKE</div>
+                <div>
+                    <div class="logo-title">Hệ Thống Báo Cáo Khảo Thí ĐGNL Lần 1</div>
+                    <div class="logo-sub">Viện Công Nghệ &amp; Đào Tạo PTIT – Rikkei Education</div>
+                </div>
+            </div>
+            <div class="header-meta">
+                Hội Đồng Chuyên Môn &amp; Khảo Thí<br>
+                Năm Học 2026 – 2027
+            </div>
         </div>
+    </header>
+
+    <div class="container">
+
+        <div class="hero">
+            <div class="hero-badge">🏛️ Hệ Thống Quản Trị Khảo Thí &amp; Kiểm Định Giáo Dục</div>
+            <h1 class="hero-title">Báo Cáo Phân Tích Năng Lực Sinh Viên Toàn Hệ Thống</h1>
+            <p class="hero-desc">
+                Cung cấp bức tranh toàn cảnh 735 sinh viên qua 6 lăng kính khảo thí chuyên sâu, ma trận chẩn đoán phân hóa, quyết sách điều chỉnh khung chương trình đào tạo và lộ trình can thiệp sư phạm 3 tầng.
+            </p>
+        </div>
+
+        <div class="portal-grid">
+
+            <!-- Executive Summary -->
+            <a href="Executive_Summary_DGNL_Report.html" class="portal-card" style="--card-accent: #3b82f6; grid-column: span 2;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                    <div class="portal-icon" style="color:#60a5fa;">🏛️</div>
+                    <span class="action-tag core" style="background:rgba(59,130,246,0.15);color:#60a5fa;">Dành Cho Ban Giám Đốc</span>
+                </div>
+                <div class="portal-card-title">
+                    Báo Cáo Tổng Hợp Toàn Hệ Thống (Executive Summary)
+                    <span style="font-size:1.1rem;">→</span>
+                </div>
+                <p class="portal-card-desc">
+                    Tổng hợp 735 SV (KS24, KS25, QTKD), 4 điểm nghẽn chiến lược, 6 lăng kính học thuật, quyết sách điều chỉnh khung chương trình đào tạo và kế hoạch can thiệp 3 tầng cấp bách cho Ban Giám Đốc.
+                </p>
+                <div class="portal-meta">
+                    <span>📊 Tổng Sĩ Số: 735 SV • 20 Lớp Học (HN &amp; HCM)</span>
+                    <span class="portal-btn-text">Truy Cập Báo Cáo Ban Giám Đốc →</span>
+                </div>
+            </a>
+
+            <!-- KS24 Report -->
+            <a href="KS24_DGNL_Report.html" class="portal-card" style="--card-accent: #10b981;">
+                <div class="portal-icon" style="color:#34d399;">☕</div>
+                <div class="portal-card-title">
+                    Khóa KS24 CNTT (Java / Spring Boot)
+                    <span style="font-size:1.1rem;">→</span>
+                </div>
+                <p class="portal-card-desc">
+                    Đánh giá nghiệm thu Cuối Kỳ III. Điều chỉnh môn Microservices, DevOps, AI và đề xuất 2 môn tự chọn mới ở Kỳ V mở rộng cơ hội việc làm.
+                </p>
+                <div class="portal-meta">
+                    <span>👨‍🎓 Sĩ số: 200 SV • 5 Lớp</span>
+                    <span class="portal-btn-text" style="color:#34d399;">Xem Chi Tiết KS24 →</span>
+                </div>
+            </a>
+
+            <!-- KS25 Report -->
+            <a href="KS25_DGNL_Report.html" class="portal-card" style="--card-accent: #3b82f6;">
+                <div class="portal-icon" style="color:#60a5fa;">🐍</div>
+                <div class="portal-card-title">
+                    Khóa KS25 CNTT (FastAPI / Python)
+                    <span style="font-size:1.1rem;">→</span>
+                </div>
+                <p class="portal-card-desc">
+                    Khảo sát Giữa Kỳ II. Giảm tải lý thuyết môn Phân tích thiết kế/Agile, bồi dưỡng FastAPI Intensive 2 tuần, bổ sung môn ReactJS/NextJS và DSA ở Kỳ III.
+                </p>
+                <div class="portal-meta">
+                    <span>👨‍🎓 Sĩ số: 429 SV • 12 Lớp</span>
+                    <span class="portal-btn-text" style="color:#60a5fa;">Xem Chi Tiết KS25 →</span>
+                </div>
+            </a>
+
+            <!-- QTKD Report -->
+            <a href="QTKD_DGNL_Report.html" class="portal-card" style="--card-accent: #f59e0b; grid-column: span 2;">
+                <div class="portal-icon" style="color:#fbbf24;">💼</div>
+                <div class="portal-card-title">
+                    Khối K25 Quản Trị Kinh Doanh
+                    <span style="font-size:1.1rem;">→</span>
+                </div>
+                <p class="portal-card-desc">
+                    Nghiệm thu 11 nhóm đề án kinh doanh thực chiến. Điều chỉnh tích hợp Business English Workshop và chuẩn TOEIC 450+ tốt nghiệp.
+                </p>
+                <div class="portal-meta">
+                    <span>👨‍🎓 Sĩ số: 105 SV • 3 Lớp • 11 Nhóm Đề Án</span>
+                    <span class="portal-btn-text" style="color:#fbbf24;">Xem Chi Tiết QTKD →</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="footer-bar">
+            <div>Viện Công Nghệ &amp; Đào Tạo PTIT Rikkei Education | Phòng Khảo Thí &amp; Đảm Bảo Chất Lượng</div>
+            <div>Báo Cáo Khảo Thí ĐGNL Lần 1 © 2026.</div>
+        </div>
+
     </div>
-</header>
-
-<!-- Hero -->
-<section class="hero">
-    <div class="hero-badge">
-        &#9679; K&#7871;t qu&#7843; &#272;GNL L&#7847;n 1 &middot; 2025
-    </div>
-    <h1>B&#225;o c&#225;o &#272;&#225;nh gi&#225; N&#259;ng l&#7921;c<br>KS24 &amp; KS25 CNTT</h1>
-    <p>Ph&#226;n t&#237;ch chuy&#234;n s&#226;u k&#7871;t qu&#7843; &#272;GNL L&#7847;n 1 d&#224;nh cho sinh vi&#234;n ng&#224;nh C&#244;ng ngh&#7879; Th&#244;ng tin &#8211; kh&#243;a KS24 (Java/Spring) v&#224; KS25 (FastAPI/Python).</p>
-    <div class="hero-meta">
-        <span>&#128197; Th&#225;ng 8, 2025</span>
-        <span>&#128101; KS24 &middot; KS25</span>
-        <span>&#128202; 3 b&#225;o c&#225;o</span>
-    </div>
-</section>
-
-<!-- Stats -->
-<div class="stats-row">
-    <div class="stat-card">
-        <div class="stat-value">2</div>
-        <div class="stat-label">Kh&#243;a h&#7885;c ph&#226;n t&#237;ch</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">KS24</div>
-        <div class="stat-label">Java / Spring Boot</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">KS25</div>
-        <div class="stat-label">FastAPI / Python</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">&#272;GNL</div>
-        <div class="stat-label">&#272;&#225;nh gi&#225; N&#259;ng l&#7921;c L&#7847;n 1</div>
-    </div>
-</div>
-
-<!-- Section label -->
-<div class="section-label">&#128196; Danh s&#225;ch b&#225;o c&#225;o</div>
-
-<!-- Cards -->
-<div class="cards-grid">
-
-    <!-- Executive Summary -->
-    <a href="Executive_Summary_DGNL_Report.html" class="report-card card-exec" id="card-executive">
-        <div class="card-header">
-            <div class="card-tag">&#9889; T&#7893;ng h&#7907;p</div>
-            <div class="card-title">Executive Summary</div>
-            <div class="card-desc">B&#225;o c&#225;o t&#7893;ng h&#7907;p d&#224;nh cho Gi&#225;m &#273;&#7889;c &#272;&#224;o t&#7841;o &#8211; so s&#225;nh KS24 v&#224; KS25, xu h&#432;&#7899;ng v&#224; khuy&#7871;n ngh&#7883; chi&#7871;n l&#432;&#7907;c.</div>
-        </div>
-        <div class="card-body">
-            <ul class="card-features">
-                <li><span class="dot"></span>So s&#225;nh t&#7893;ng quan KS24 vs KS25</li>
-                <li><span class="dot"></span>Bi&#7875;u &#273;&#7891; ph&#226;n ph&#7889;i &#273;i&#7875;m t&#7893;ng h&#7907;p</li>
-                <li><span class="dot"></span>Ph&#226;n t&#237;ch theo nh&#243;m v&#224; m&#244;n h&#7885;c</li>
-                <li><span class="dot"></span>Khuy&#7871;n ngh&#7883; c&#7843;i thi&#7879;n ch&#432;&#417;ng tr&#236;nh</li>
-            </ul>
-        </div>
-        <div class="card-footer">
-            <span class="card-size">~40 KB &middot; HTML</span>
-            <span class="btn-open">Xem b&#225;o c&#225;o &#8594;</span>
-        </div>
-    </a>
-
-    <!-- KS24 Report -->
-    <a href="KS24_DGNL_Report.html" class="report-card card-ks24" id="card-ks24">
-        <div class="card-header">
-            <div class="card-tag">&#129001; KS24</div>
-            <div class="card-title">B&#225;o c&#225;o Chi ti&#7871;t KS24</div>
-            <div class="card-desc">Ph&#226;n t&#237;ch s&#226;u k&#7871;t qu&#7843; &#272;GNL kh&#243;a KS24 &#8211; Java/Spring Boot, bao g&#7891;m ph&#226;n t&#237;ch t&#7915;ng l&#7899;p v&#224; t&#7915;ng m&#244;n h&#7885;c.</div>
-        </div>
-        <div class="card-body">
-            <ul class="card-features">
-                <li><span class="dot"></span>Ph&#226;n t&#237;ch chi ti&#7871;t theo l&#7899;p</li>
-                <li><span class="dot"></span>Ph&#226;n ph&#7889;i &#273;i&#7875;m t&#7915;ng m&#244;n</li>
-                <li><span class="dot"></span>Bi&#7875;u &#273;&#7891; t&#432;&#417;ng t&#225;c &#273;&#7847;y &#273;&#7911;</li>
-                <li><span class="dot"></span>Nh&#7853;n di&#7879;n sinh vi&#234;n c&#7847;n h&#7895; tr&#7907;</li>
-            </ul>
-        </div>
-        <div class="card-footer">
-            <span class="card-size">~1.3 MB &middot; HTML</span>
-            <span class="btn-open">Xem b&#225;o c&#225;o &#8594;</span>
-        </div>
-    </a>
-
-    <!-- KS25 Report -->
-    <a href="KS25_DGNL_Report.html" class="report-card card-ks25" id="card-ks25">
-        <div class="card-header">
-            <div class="card-tag">&#128309; KS25</div>
-            <div class="card-title">B&#225;o c&#225;o Chi ti&#7871;t KS25</div>
-            <div class="card-desc">Ph&#226;n t&#237;ch s&#226;u k&#7871;t qu&#7843; &#272;GNL kh&#243;a KS25 &#8211; FastAPI/Python, bao g&#7891;m ph&#226;n t&#237;ch t&#7915;ng l&#7899;p v&#224; t&#7915;ng m&#244;n h&#7885;c.</div>
-        </div>
-        <div class="card-body">
-            <ul class="card-features">
-                <li><span class="dot"></span>Ph&#226;n t&#237;ch chi ti&#7871;t theo l&#7899;p</li>
-                <li><span class="dot"></span>Ph&#226;n ph&#7889;i &#273;i&#7875;m t&#7915;ng m&#244;n</li>
-                <li><span class="dot"></span>Bi&#7875;u &#273;&#7891; t&#432;&#417;ng t&#225;c &#273;&#7847;y &#273;&#7911;</li>
-                <li><span class="dot"></span>Nh&#7853;n di&#7879;n sinh vi&#234;n c&#7847;n h&#7895; tr&#7907;</li>
-            </ul>
-        </div>
-        <div class="card-footer">
-            <span class="card-size">~382 KB &middot; HTML</span>
-            <span class="btn-open">Xem b&#225;o c&#225;o &#8594;</span>
-        </div>
-    </a>
-
-</div>
-
-<footer>
-    H&#7879; th&#7889;ng b&#225;o c&#225;o &#272;GNL &middot; KS24 &amp; KS25 CNTT &middot; 2025
-</footer>
 
 </body>
 </html>

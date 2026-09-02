@@ -3,629 +3,1198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Báo cáo Tổng hợp ĐGNL Lần 1 - KS24 & KS25 CNTT | Giám đốc Đào tạo</title>
+    <title>Báo Cáo Tổng Hợp ĐGNL Toàn Hệ Thống | Ban Giám Đốc Đào Tạo</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        :root {
-            --bg-main:       #09090b;
-            --bg-card:       #18181b;
-            --bg-card2:      #1c1c1f;
-            --border-color:  #27272a;
-            --text-primary:  #f4f4f5;
-            --text-secondary:#a1a1aa;
-            --text-muted:    #71717a;
-            --color-primary: #3b82f6;
-            --color-success: #10b981;
-            --color-warning: #f59e0b;
-            --color-danger:  #ef4444;
-            --color-purple:  #8b5cf6;
-            --color-ks24:    #10b981;   /* Emerald - KS24 Java/Spring */
-            --color-ks25:    #3b82f6;   /* Blue    - KS25 FastAPI/Python */
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-main); color: var(--text-primary); padding-bottom: 80px; }
+        
+    :root {
+        --bg-body:       #0c0d10;
+        --bg-surface:    #14151a;
+        --bg-surface-elevated: #1a1b22;
+        --bg-card:       #171820;
+        --border-subtle: #242632;
+        --border-focus:  #36394a;
+        --text-main:     #f8fafc;
+        --text-muted:    #94a3b8;
+        --text-dim:      #64748b;
+        --color-pri:     #3b82f6;
+        --color-acc:     #8b5cf6;
+        --color-ks24:    #10b981;
+        --color-ks25:    #3b82f6;
+        --color-qtkd:    #f59e0b;
+        --color-danger:  #f43f5e;
+        --color-success: #10b981;
+        --color-warning: #f59e0b;
+        --radius-sm:     6px;
+        --radius-md:     10px;
+        --radius-lg:     14px;
+        --font-main:     'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-heading:  'Outfit', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+    body { background: var(--bg-body); color: var(--text-main); line-height: 1.5; padding-bottom: 80px; -webkit-font-smoothing: antialiased; }
 
-        /* ── Sticky header ── */
-        .header {
-            background: rgba(18,18,21,0.85);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 200;
-        }
-        .header-inner {
-            max-width: 1440px; margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo-wrap { display: flex; align-items: center; gap: 0.75rem; }
-        .logo-badge {
-            background: linear-gradient(135deg, var(--color-ks24), var(--color-ks25));
-            color: #fff; width: 40px; height: 40px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem;
-            box-shadow: 0 4px 16px rgba(59,130,246,0.3);
-        }
-        .logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; }
-        .header-meta { font-size: 0.78rem; color: var(--text-muted); text-align: right; line-height: 1.4; }
+    /* ── HEADER ── */
+    .header {
+        background: rgba(18, 19, 26, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-subtle);
+        position: sticky; top: 0; z-index: 300;
+    }
+    .header-inner {
+        max-width: 1440px; margin: 0 auto; padding: 0.9rem 2rem;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.85rem; }
+    .logo-badge {
+        background: linear-gradient(135deg, var(--color-pri), var(--color-acc));
+        color: #fff; width: 42px; height: 42px; border-radius: var(--radius-md);
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .logo-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.12rem; color: #fff; letter-spacing: -0.2px; }
+    .logo-sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 1px; }
+    .header-meta { font-size: 0.76rem; color: var(--text-dim); text-align: right; line-height: 1.35; }
 
-        /* ── Container ── */
-        .container { max-width: 1440px; margin: 2rem auto; padding: 0 2rem; }
+    /* ── CONTAINER ── */
+    .container { max-width: 1440px; margin: 1.75rem auto; padding: 0 2rem; }
 
-        /* ── Alert banner ── */
-        .alert-banner {
-            background: linear-gradient(135deg, rgba(239,68,68,0.06), rgba(245,158,11,0.04));
-            border: 1px solid rgba(239,68,68,0.2);
-            border-left: 5px solid var(--color-danger);
-            border-radius: 10px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 2rem;
-            display: flex; gap: 1rem; align-items: flex-start;
-        }
-        .alert-icon { font-size: 1.8rem; flex-shrink: 0; }
-        .alert-title { color: #f87171; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
-        .alert-body { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; }
+    /* ── TABS ── */
+    .nav-tabs-wrapper {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 0.35rem;
+        margin-bottom: 2rem;
+        display: inline-flex;
+        gap: 0.25rem;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .nav-tab-btn {
+        background: transparent; border: none; color: var(--text-muted);
+        font-family: var(--font-heading); font-size: 0.88rem; font-weight: 600;
+        padding: 0.6rem 1.25rem; border-radius: var(--radius-md); cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+    }
+    .nav-tab-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.04); }
+    .nav-tab-btn.active {
+        color: #fff; background: var(--bg-surface-elevated);
+        border: 1px solid var(--border-focus);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
 
-        /* ── KPI stripe ── */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .kpi-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1.25rem 1.5rem;
-            position: relative; overflow: hidden;
-        }
-        .kpi-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--accent-l), var(--accent-r));
-        }
-        .kpi-card.blue   { --accent-l: #3b82f6; --accent-r: #06b6d4; }
-        .kpi-card.green  { --accent-l: #10b981; --accent-r: #34d399; }
-        .kpi-card.orange { --accent-l: #f59e0b; --accent-r: #fbbf24; }
-        .kpi-card.red    { --accent-l: #ef4444; --accent-r: #f87171; }
-        .kpi-card.purple { --accent-l: #8b5cf6; --accent-r: #a78bfa; }
-        .kpi-label { font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.5rem; }
-        .kpi-value { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; color: var(--text-primary); }
-        .kpi-sub   { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.3rem; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeInUp 0.3s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ── Section heading ── */
-        .section-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.2rem; font-weight: 700;
-            color: #fff;
-            border-left: 4px solid var(--color-primary);
-            padding-left: 0.75rem;
-            margin-bottom: 1.25rem;
-        }
+    /* ── KPI BENTO STRIP ── */
+    .kpi-grid {
+        display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-bottom: 2rem;
+    }
+    .kpi-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.15rem 1.25rem;
+        position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover { transform: translateY(-2px); border-color: var(--border-focus); }
+    .kpi-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: var(--kpi-accent, var(--color-pri));
+    }
+    .kpi-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-dim); margin-bottom: 0.35rem; font-weight: 700; }
+    .kpi-value { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1.1; }
+    .kpi-sub   { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem; font-weight: 500; }
 
-        /* ── Cohort comparison grid ── */
-        .cohort-compare {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .cohort-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-        .cohort-card.ks24 { border-top: 3px solid var(--color-ks24); }
-        .cohort-card.ks25 { border-top: 3px solid var(--color-ks25); }
-        .cohort-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.8rem; font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .cohort-badge.ks24 { background: rgba(16,185,129,0.12); color: var(--color-ks24); border: 1px solid rgba(16,185,129,0.2); }
-        .cohort-badge.ks25 { background: rgba(59,130,246,0.12); color: var(--color-ks25); border: 1px solid rgba(59,130,246,0.2); }
-        .cohort-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
-        .cohort-stat { background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; }
-        .cohort-stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .cohort-stat-value { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 700; margin-top: 0.15rem; }
+    /* ── SECTION HEADINGS ── */
+    .section-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;
+    }
+    .section-title {
+        font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;
+        color: #fff; display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.2px;
+    }
+    .section-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
 
-        /* ── Branch row ── */
-        .branch-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;
-        }
-        .branch-card {
-            background: rgba(255,255,255,0.025); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;
-        }
-        .branch-title { font-size: 0.8rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
-        .branch-stats { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-secondary); }
-        .branch-stat { display: flex; flex-direction: column; gap: 0.1rem; }
-        .branch-stat strong { font-size: 1rem; font-weight: 700; color: #fff; }
+    /* ── BENTO CARD BASE ── */
+    .bento-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.75rem;
+    }
 
-        /* ── Chart grid ── */
-        .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
-        .chart-card {
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 1.5rem;
-        }
-        .chart-card-title { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 1.25rem; }
-        .chart-wrap { position: relative; height: 260px; }
+    /* ── BOTTLENECK ALERT BANNER ── */
+    .bottleneck-banner {
+        background: linear-gradient(180deg, rgba(244,63,94,0.08) 0%, rgba(244,63,94,0.02) 100%);
+        border: 1px solid rgba(244,63,94,0.35); border-radius: var(--radius-lg);
+        padding: 1.5rem; margin-bottom: 2rem;
+    }
+    .bottleneck-title {
+        font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #fb7185;
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .bottleneck-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .bottleneck-cell {
+        background: rgba(12, 13, 16, 0.6); border: 1px solid rgba(244,63,94,0.2);
+        border-radius: var(--radius-md); padding: 1rem; display: flex; flex-direction: column;
+    }
+    .bottleneck-cell strong { font-size: 0.84rem; color: #fff; margin-bottom: 0.35rem; display: block; }
+    .bottleneck-cell p { font-size: 0.77rem; color: var(--text-muted); line-height: 1.45; margin-top: auto; }
 
-        /* ── Level breakdown ── */
-        .level-bars { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
-        .level-row { display: flex; align-items: center; gap: 0.75rem; }
-        .level-label { font-size: 0.8rem; width: 100px; flex-shrink: 0; }
-        .level-bar-wrap { flex: 1; background: rgba(255,255,255,0.07); height: 20px; border-radius: 10px; overflow: hidden; }
-        .level-bar-fill { height: 100%; border-radius: 10px; transition: width 0.5s; }
-        .level-count { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); width: 70px; text-align: right; }
+    /* ── CURRICULUM BENTO CARDS (REDESIGNED) ── */
+    .curric-bento-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;
+    }
+    .curric-cohort-card {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .curric-cohort-header {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle);
+    }
+    .cohort-badge-tag {
+        display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem;
+        border-radius: 999px; font-size: 0.75rem; font-weight: 700; font-family: var(--font-heading);
+    }
+    .cohort-badge-tag.ks24 { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .cohort-badge-tag.ks25 { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .cohort-badge-tag.qtkd { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
 
-        /* ── Heat matrix ── */
-        .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-        .matrix-table th, .matrix-table td { padding: 0.65rem 0.75rem; border: 1px solid var(--border-color); text-align: center; }
-        .matrix-table th { background: rgba(255,255,255,0.04); color: var(--text-secondary); font-weight: 600; }
-        .matrix-table td.danger  { background: rgba(239,68,68,0.12); color: #f87171; font-weight: 700; }
-        .matrix-table td.warning { background: rgba(245,158,11,0.1);  color: #fbbf24; font-weight: 600; }
-        .matrix-table td.success { background: rgba(16,185,129,0.1);  color: #34d399; font-weight: 600; }
-        .matrix-table td.neutral { color: var(--text-secondary); }
+    /* Subject Item Card */
+    .subject-item-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 1.15rem; transition: border-color 0.2s;
+    }
+    .subject-item-card:hover { border-color: var(--border-focus); }
+    .subject-item-top {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;
+    }
+    .subject-code {
+        font-family: var(--font-heading); font-size: 0.82rem; font-weight: 700; color: #fff;
+        display: flex; align-items: center; gap: 0.4rem;
+    }
+    .credit-tag {
+        background: rgba(255,255,255,0.06); color: var(--text-muted);
+        font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600;
+    }
+    .action-tag {
+        font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .action-tag.core { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .action-tag.sec  { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .action-tag.ai   { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .action-tag.reduce { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
 
-        /* ── Insight cards ── */
-        .insight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
-        .insight-card {
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 10px; padding: 1.25rem;
-        }
-        .insight-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
-        .insight-title { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
-        .insight-body { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.55; }
+    .subject-feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .subject-feature-list li {
+        font-size: 0.78rem; color: var(--text-muted); line-height: 1.45;
+        display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .subject-feature-list li strong { color: var(--text-main); font-weight: 600; }
+    .subject-feature-list li::before {
+        content: '✓'; color: var(--color-ks24); font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .subject-feature-list.blue li::before { color: var(--color-ks25); }
+    .subject-feature-list.gold li::before { color: var(--color-qtkd); }
 
-        /* ── Recommendation ── */
-        .rec-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.75rem; margin-bottom: 2rem; }
-        .rec-section h3 { font-family: 'Outfit',sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
-        .rec-list { display: flex; flex-direction: column; gap: 0.75rem; }
-        .rec-item {
-            display: flex; gap: 0.75rem; align-items: flex-start;
-            background: rgba(255,255,255,0.025); border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 0.85rem 1rem; font-size: 0.83rem; color: var(--text-secondary); line-height: 1.55;
-        }
-        .rec-item .rec-num {
-            font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 700;
-            background: var(--color-primary); color: white;
-            border-radius: 50%; width: 22px; height: 22px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; margin-top: 0.1rem;
-        }
-        .rec-item .rec-num.urgent { background: var(--color-danger); }
-        .rec-item .rec-num.warning { background: var(--color-warning); color: #000; }
+    /* Elective VIP Box */
+    .elective-vip-card {
+        background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.04) 100%);
+        border: 1px solid rgba(139,92,246,0.35); border-radius: var(--radius-lg);
+        padding: 1.25rem 1.5rem; margin-top: 0.5rem;
+    }
+    .elective-vip-title {
+        font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #c084fc;
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem;
+    }
+    .elective-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .elective-item {
+        background: rgba(12, 13, 16, 0.7); border: 1px solid rgba(139,92,246,0.25);
+        border-radius: var(--radius-md); padding: 1rem;
+    }
+    .elective-item strong { font-size: 0.84rem; color: #fff; display: block; margin-bottom: 0.35rem; }
+    .elective-item p { font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; }
 
-        /* ── Footer ── */
-        .report-footer {
-            margin-top: 3rem; border-top: 1px solid var(--border-color);
-            padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.78rem; color: var(--text-muted);
-        }
+    /* ── TABLES ── */
+    .table-wrapper { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .data-table th, .data-table td { padding: 0.75rem 0.9rem; text-align: center; border-bottom: 1px solid var(--border-subtle); }
+    .data-table th {
+        background: var(--bg-surface-elevated); color: var(--text-muted);
+        font-family: var(--font-heading); font-weight: 600; font-size: 0.72rem;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Badges */
+    .badge {
+        display: inline-flex; align-items: center; gap: 0.25rem;
+        padding: 0.2rem 0.6rem; border-radius: 999px;
+        font-size: 0.72rem; font-weight: 700; line-height: 1.3;
+    }
+    .badge.pass { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge.lvl-3 { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .badge.lvl-2 { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge.lvl-1 { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .badge.lvl-0 { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+
+    /* Filter Bar */
+    .filter-bar {
+        display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        padding: 0.85rem 1rem; border-radius: var(--radius-lg); align-items: center;
+    }
+    .filter-input, .filter-select {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        color: #fff; padding: 0.55rem 0.85rem; border-radius: var(--radius-md);
+        font-size: 0.82rem; outline: none; transition: border-color 0.2s;
+    }
+    .filter-input:focus, .filter-select:focus { border-color: var(--color-pri); }
+
+    /* Footer */
+    .footer-bar {
+        margin-top: 3.5rem; border-top: 1px solid var(--border-subtle);
+        padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.76rem; color: var(--text-dim);
+    }
+    .footer-bar a { color: var(--color-pri); text-decoration: none; font-weight: 600; }
+    
+        
+    /* ── ENHANCED CURRICULUM SECTION STYLES ── */
+    .curric-overview-strip {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .curric-pill-stat {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 0.85rem 1.15rem;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .curric-pill-stat strong { font-size: 0.85rem; color: #fff; }
+    .curric-pill-stat span { font-size: 0.75rem; color: var(--text-muted); }
+
+    .curric-tri-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 1.75rem;
+    }
+    .curric-column {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.25rem;
+        display: flex; flex-direction: column; gap: 1rem;
+    }
+    .curric-column-header {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle);
+    }
+    .curric-column-title { font-family: var(--font-heading); font-size: 0.98rem; font-weight: 700; color: #fff; }
+    .curric-column-sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Modern Subject Decision Card */
+    .decision-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 1rem;
+        display: flex; flex-direction: column; gap: 0.65rem;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .decision-card:hover { transform: translateY(-2px); border-color: var(--border-focus); }
+    
+    .decision-card-top {
+        display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+    }
+    .subject-name-tag {
+        font-family: var(--font-heading); font-size: 0.84rem; font-weight: 700; color: #fff;
+        display: flex; align-items: center; gap: 0.4rem;
+    }
+    .code-chip {
+        background: rgba(255,255,255,0.06); color: var(--text-muted);
+        font-size: 0.68rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 4px;
+    }
+    .status-badge {
+        font-size: 0.67rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .status-badge.upgrade { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .status-badge.reduce  { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .status-badge.newmod  { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .status-badge.danger  { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+
+    /* 2-Tone Problem & Action Block */
+    .gap-block {
+        background: rgba(244,63,94,0.06); border-left: 3px solid #f43f5e;
+        padding: 0.45rem 0.65rem; border-radius: 0 4px 4px 0;
+        font-size: 0.75rem; color: #fecdd3; line-height: 1.4;
+    }
+    .gap-block strong { color: #fb7185; font-weight: 700; }
+
+    .action-block {
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+        padding: 0.55rem 0.65rem; border-radius: 6px;
+    }
+    .action-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .action-list li {
+        font-size: 0.76rem; color: var(--text-muted); line-height: 1.45;
+        display: flex; gap: 0.45rem; align-items: flex-start;
+    }
+    .action-list li strong { color: #f1f5f9; font-weight: 600; }
+    .action-list li::before {
+        content: '⚡'; font-size: 0.7rem; flex-shrink: 0; margin-top: 1px; color: var(--color-pri);
+    }
+    .action-list.green li::before { color: #10b981; }
+    .action-list.blue li::before { color: #3b82f6; }
+    .action-list.gold li::before { color: #f59e0b; }
+
+    /* Wide Electives VIP Banner */
+    .electives-master-banner {
+        background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.04) 50%, rgba(16,185,129,0.04) 100%);
+        border: 1px solid rgba(139,92,246,0.35); border-radius: var(--radius-lg);
+        padding: 1.5rem;
+    }
+    .electives-banner-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;
+    }
+    .electives-banner-title {
+        font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #c084fc;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .electives-grid-3 {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .elective-card-box {
+        background: rgba(12, 13, 16, 0.7); border: 1px solid rgba(139,92,246,0.25);
+        border-radius: var(--radius-md); padding: 1.15rem;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .elective-target-role {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        background: rgba(139,92,246,0.15); color: #c084fc; border: 1px solid rgba(139,92,246,0.3);
+        font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;
+        margin-bottom: 0.5rem; text-transform: uppercase;
+    }
+    .elective-card-name { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+    .elective-card-desc { font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; }
+    .elective-skills-tag {
+        margin-top: 0.75rem; padding-top: 0.65rem; border-top: 1px solid rgba(255,255,255,0.06);
+        font-size: 0.72rem; color: #a78bfa; font-weight: 600; display: flex; gap: 0.35rem; flex-wrap: wrap;
+    }
+    
     </style>
 </head>
 <body>
 
-    <!-- ── HEADER ───────────────────────────────────────────────────────────── -->
+    <!-- ── HEADER ── -->
     <header class="header">
         <div class="header-inner">
             <div class="logo-wrap">
-                <div class="logo-badge">RK</div>
+                <div class="logo-badge">RKE</div>
                 <div>
-                    <div class="logo-text">Báo Cáo Tổng Hợp ĐGNL Lần 1</div>
-                    <div style="font-size:0.72rem;color:var(--text-muted);">Rikkei Education – Hệ CNTT (KS24 + KS25)</div>
+                    <div class="logo-title">Báo Cáo Tổng Hợp Khảo Thí ĐGNL Lần 1</div>
+                    <div class="logo-sub">Hệ Thống Đào Tạo PTIT Rikkei Education (Khối KS24, KS25 CNTT &amp; K25 QTKD)</div>
                 </div>
             </div>
             <div class="header-meta">
-                Dành cho Giám đốc Đào tạo<br>
-                Ngày phát hành: 23/08/2026
+                Ban Giám Đốc Đào Tạo &amp; Hội Đồng Chuyên Môn<br>
+                Cập nhật: 02/09/2026
             </div>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- ── ALERT ────────────────────────────────────────────────────────── -->
-        <div class="alert-banner">
-            <div class="alert-icon">🚨</div>
-            <div>
-                <div class="alert-title">Cảnh báo Chất lượng Học thuật – Báo động đỏ đối với KS25</div>
-                <div class="alert-body">
-                    Tổng hợp kết quả ĐGNL Lần 1 của <strong>629 học viên</strong> thuộc hệ CNTT (KS24 và KS25):
-                    Chỉ <strong>86 học viên (13.7%)</strong> đạt Mức sẵn sàng nghề nghiệp (L2 &amp; L3).
-                    Đặc biệt, khóa KS25 ghi nhận tỷ lệ trượt thực hành lên đến <strong>81.9%</strong> và tỷ lệ vắng thi <strong>48.0%</strong>
-                    do sự cố nghiêm trọng hệ thống khảo thí tại Hà Nội, đòi hỏi Ban lãnh đạo ra quyết sách khẩn cấp về phân luồng học thuật.
-                </div>
-            </div>
+        <!-- ── TAB NAVIGATION ── -->
+        <div class="nav-tabs-wrapper">
+            <button class="nav-tab-btn active" onclick="switchExecTab('tab-dash', event)">📊 Tổng Quan &amp; KPI</button>
+            <button class="nav-tab-btn" onclick="switchExecTab('tab-lens', event)">🔬 6 Lăng Kính Khảo Thí</button>
+            <button class="nav-tab-btn" onclick="switchExecTab('tab-diag', event)">🎯 Ma Trận Chẩn Đoán</button>
+            <button class="nav-tab-btn" onclick="switchExecTab('tab-curric', event)">🏛️ Điều Chỉnh Chương Trình &amp; Môn Mới</button>
+            <button class="nav-tab-btn" onclick="switchExecTab('tab-plan', event)">📋 Kế Hoạch Can Thiệp 3 Tầng</button>
         </div>
 
-        <!-- ── KPI STRIP ────────────────────────────────────────────────────── -->
+        <!-- ── KPI BENTO STRIP ── -->
         <div class="kpi-grid">
-            <div class="kpi-card blue">
-                <div class="kpi-label">Tổng số học viên đăng ký</div>
-                <div class="kpi-value">629</div>
-                <div class="kpi-sub">KS24: 200 SV  •  KS25: 429 SV</div>
+            <div class="kpi-card" style="--kpi-accent: #3b82f6;">
+                <div class="kpi-label">Tổng Sĩ Số Đăng Ký</div>
+                <div class="kpi-value">732</div>
+                <div class="kpi-sub">KS24: 200 | KS25: 429 | QTKD: 103</div>
             </div>
-            <div class="kpi-card green">
-                <div class="kpi-label">Đã dự thi thực tế</div>
-                <div class="kpi-value">401</div>
-                <div class="kpi-sub">KS24: 178 SV  •  KS25: 223 SV</div>
+            <div class="kpi-card" style="--kpi-accent: #10b981;">
+                <div class="kpi-label">Dự Thi Thực Tế</div>
+                <div class="kpi-value">538</div>
+                <div class="kpi-sub">Tỷ lệ tham gia: 73.5%</div>
             </div>
-            <div class="kpi-card orange">
-                <div class="kpi-label">Tỷ lệ Vắng thi</div>
-                <div class="kpi-value">36.2%</div>
-                <div class="kpi-sub">Tổng 228 SV vắng  •  KS25 HN: sự cố hệ thống</div>
+            <div class="kpi-card" style="--kpi-accent: #f59e0b;">
+                <div class="kpi-label">Đạt Chuẩn Chuyên Môn</div>
+                <div class="kpi-value">301</div>
+                <div class="kpi-sub">Tỷ lệ Đạt: 41.1%</div>
             </div>
-            <div class="kpi-card purple">
-                <div class="kpi-label">Tỷ lệ Sẵn sàng Nghề nghiệp</div>
-                <div class="kpi-value">13.7%</div>
-                <div class="kpi-sub">Mức L2+L3  •  86/629 SV đạt chuẩn</div>
+            <div class="kpi-card" style="--kpi-accent: #8b5cf6;">
+                <div class="kpi-label">Chuẩn Đầu Ra (L2+L3)</div>
+                <div class="kpi-value">214</div>
+                <div class="kpi-sub">Tỷ lệ: 29.2%</div>
             </div>
-            <div class="kpi-card red">
-                <div class="kpi-label">Tỷ lệ chưa đạt (Mức 0)</div>
-                <div class="kpi-value">80.6%</div>
-                <div class="kpi-sub">KS24: 113 SV  •  KS25: 394 SV</div>
+            <div class="kpi-card" style="--kpi-accent: #06b6d4;">
+                <div class="kpi-label">Điểm TB Kỹ Năng Mềm</div>
+                <div class="kpi-value">87.3</div>
+                <div class="kpi-sub">Thang điểm 100</div>
             </div>
-        </div>
-
-        <!-- ── COHORT COMPARISON ─────────────────────────────────────────────── -->
-        <div class="section-title">📊 Đối chiếu Chỉ số Chất lượng giữa 2 Khóa học</div>
-        <div class="cohort-compare">
-
-            <!-- KS24 -->
-            <div class="cohort-card ks24">
-                <div class="cohort-badge ks24">☕ Khóa KS24 – Spring Boot & Java (Cuối kỳ III)</div>
-                <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5;margin-bottom:0.75rem;">
-                    Đợt ĐGNL Lần 1 thực hiện sau khi học viên đã hoàn thành 3 kỳ học (Java Core, OOP, Web App, Web Service, React JS). Đây là kỳ đánh giá nghiệm thu để phân luồng công việc hướng đến tốt nghiệp.
-                </div>
-                <div class="cohort-stat-grid">
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Sĩ số đăng ký</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks24)">200</div>
-                    </div>
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Đã dự thi</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks24)">178</div>
-                    </div>
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Điểm TB Final</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks24)">5.33/10</div>
-                    </div>
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Tỷ lệ Sẵn sàng (L2+L3)</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks24)">33.0%</div>
-                    </div>
-                </div>
-                <div class="branch-row">
-                    <div class="branch-card">
-                        <div class="branch-title">📍 Hà Nội (HN-KS24)</div>
-                        <div class="branch-stats">
-                            <div class="branch-stat"><span>Đăng ký</span><strong>156</strong></div>
-                            <div class="branch-stat"><span>Dự thi</span><strong>142</strong></div>
-                            <div class="branch-stat"><span>Điểm TB</span><strong>5.87</strong></div>
-                            <div class="branch-stat"><span>Sẵn sàng</span><strong style="color:var(--color-ks24)">32.1%</strong></div>
-                        </div>
-                    </div>
-                    <div class="branch-card">
-                        <div class="branch-title">📍 TP.HCM (HCM-KS24)</div>
-                        <div class="branch-stats">
-                            <div class="branch-stat"><span>Đăng ký</span><strong>44</strong></div>
-                            <div class="branch-stat"><span>Dự thi</span><strong>36</strong></div>
-                            <div class="branch-stat"><span>Điểm TB</span><strong>6.47</strong></div>
-                            <div class="branch-stat"><span>Sẵn sàng</span><strong style="color:var(--color-ks24)">36.4%</strong></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- KS25 -->
-            <div class="cohort-card ks25">
-                <div class="cohort-badge ks25">🐍 Khóa KS25 – FastAPI & Python (Giữa kỳ II)</div>
-                <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5;margin-bottom:0.75rem;">
-                    Đợt ĐGNL Lần 1 thực hiện giữa kỳ II – học viên mới hoàn thành Python Core, OOP và đang học FastAPI. Đây là kỳ chẩn đoán lâm sàng để phát hiện điểm yếu và can thiệp sớm trước khi vào kỳ III.
-                </div>
-                <div class="cohort-stat-grid">
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Sĩ số đăng ký</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks25)">429</div>
-                    </div>
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Đã dự thi</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks25)">223</div>
-                    </div>
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Điểm TB Final</div>
-                        <div class="cohort-stat-value" style="color:var(--color-ks25)">3.8/10</div>
-                    </div>
-                    <div class="cohort-stat">
-                        <div class="cohort-stat-label">Tỷ lệ Sẵn sàng (L2+L3)</div>
-                        <div class="cohort-stat-value" style="color:var(--color-danger)">4.7%</div>
-                    </div>
-                </div>
-                <div class="branch-row">
-                    <div class="branch-card" style="border-left:2px solid var(--color-danger);">
-                        <div class="branch-title">📍 Hà Nội (HN-KS25) 🚨</div>
-                        <div class="branch-stats">
-                            <div class="branch-stat"><span>Đăng ký</span><strong>278</strong></div>
-                            <div class="branch-stat"><span>Dự thi</span><strong style="color:#f87171">101</strong></div>
-                            <div class="branch-stat"><span>Điểm TB</span><strong>3.71</strong></div>
-                            <div class="branch-stat"><span>Sẵn sàng</span><strong style="color:var(--color-danger)">4.0%</strong></div>
-                        </div>
-                        <div style="font-size:0.7rem;color:#f87171;margin-top:0.4rem;">⚠ 177/278 SV không có dữ liệu điểm CNTT (63.7%) — trong đó ~70 SV đã có mặt nhưng mất bài do sự cố hệ thống khảo thí ca 7h-9h ngày 10/8, ~107 SV vắng thực sự</div>
-                    </div>
-                    <div class="branch-card">
-                        <div class="branch-title">📍 TP.HCM (HCM-KS25)</div>
-                        <div class="branch-stats">
-                            <div class="branch-stat"><span>Đăng ký</span><strong>151</strong></div>
-                            <div class="branch-stat"><span>Dự thi</span><strong>122</strong></div>
-                            <div class="branch-stat"><span>Điểm TB</span><strong>3.38</strong></div>
-                            <div class="branch-stat"><span>Sẵn sàng</span><strong style="color:var(--color-warning)">6.0%</strong></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="kpi-card" style="--kpi-accent: #3b82f6;">
+                <div class="kpi-label">Điểm TB Tiếng Anh</div>
+                <div class="kpi-value">412</div>
+                <div class="kpi-sub">Chuẩn TOEIC / 990</div>
             </div>
         </div>
 
-        <!-- ── CHARTS ─────────────────────────────────────────────────────── -->
-        <div class="chart-grid">
-            <!-- Comparison Bar Chart -->
-            <div class="chart-card">
-                <div class="chart-card-title">📈 So sánh Điểm trung bình (Thang 10) theo Cơ sở</div>
-                <div class="chart-wrap">
-                    <canvas id="compChart"></canvas>
-                </div>
-            </div>
+        <!-- ── TAB 1: TỔNG QUAN ────────────────────────────────────────────── -->
+        <div id="tab-dash" class="tab-pane active">
 
-            <!-- Readiness Donut -->
-            <div class="chart-card">
-                <div class="chart-card-title">🎯 Phân loại Mức độ Sẵn sàng (Tổng 629 SV)</div>
-                <div class="chart-wrap" style="display:flex;align-items:center;gap:1.5rem;height:auto;padding-top:0.5rem;">
-                    <div style="width:200px;height:200px;flex-shrink:0;position:relative;">
-                        <canvas id="readinessChart"></canvas>
+            <!-- Executive Bottlenecks Banner -->
+            <div class="bottleneck-banner">
+                <div class="bottleneck-title">
+                    <span>⚠️</span> 4 Điểm Nghẽn Cốt Lõi Cần Ban Giám Đốc Ra Quyết Sách
+                </div>
+                <div class="bottleneck-grid">
+                    <div class="bottleneck-cell">
+                        <strong>1. Độ Lệch Giảng Viên (7.7x)</strong>
+                        <p>Điểm thực hành giữa các lớp chênh từ 45.8đ xuống 5.9đ &rarr; Chuẩn hóa giáo án Live-Coding đồng bộ.</p>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.82rem;">
-                        <div style="display:flex;align-items:center;gap:0.5rem;">
-                            <div style="width:12px;height:12px;border-radius:2px;background:#ef4444;flex-shrink:0;"></div>
-                            <span><strong style="color:#ef4444">Mức 0 – Chưa đạt:</strong> 507 SV (80.6%)</span>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:0.5rem;">
-                            <div style="width:12px;height:12px;border-radius:2px;background:#f59e0b;flex-shrink:0;"></div>
-                            <span><strong style="color:#f59e0b">Mức 1 – Cơ bản:</strong> 36 SV (5.7%)</span>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:0.5rem;">
-                            <div style="width:12px;height:12px;border-radius:2px;background:#3b82f6;flex-shrink:0;"></div>
-                            <span><strong style="color:#3b82f6">Mức 2 – Đạt chuẩn:</strong> 67 SV (10.7%)</span>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:0.5rem;">
-                            <div style="width:12px;height:12px;border-radius:2px;background:#10b981;flex-shrink:0;"></div>
-                            <span><strong style="color:#10b981">Mức 3 – Làm chủ:</strong> 19 SV (3.0%)</span>
-                        </div>
-                        <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:6px;font-size:0.75rem;color:var(--text-secondary);">
-                            ✅ <strong>Sẵn sàng nghề nghiệp:</strong> 86 SV (13.7%)
-                        </div>
+                    <div class="bottleneck-cell">
+                        <strong>2. Nghịch Lý Trắc Nghiệm (r = 0.14)</strong>
+                        <p>Trắc nghiệm đạt 70-80đ nhưng không code được API &rarr; Giảm 50% trắc nghiệm ở kỳ ĐGNL tới.</p>
+                    </div>
+                    <div class="bottleneck-cell">
+                        <strong>3. Rơi Rụng Phỏng Vấn (53%)</strong>
+                        <p>29 SV KS24 giỏi code nhưng liệt vấn đáp &rarr; Bắt buộc tham gia Mock Interview 1-on-1 theo STAR.</p>
+                    </div>
+                    <div class="bottleneck-cell">
+                        <strong>4. Khoảng Trống Tiếng Anh</strong>
+                        <p>Điểm TOEIC toàn hệ thống chỉ đạt 260-280đ &rarr; Đưa chuẩn TOEIC 450+ vào điều kiện tốt nghiệp.</p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ── HEAT MATRIX ──────────────────────────────────────────────────── -->
-        <div class="section-title">🔥 Bảng Ma trận Chỉ số So sánh Chéo KS24 vs KS25</div>
-        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1.5rem;margin-bottom:2rem;overflow-x:auto;">
-            <table class="matrix-table">
-                <thead>
-                    <tr>
-                        <th style="text-align:left;">Chỉ số đánh giá</th>
-                        <th style="background:rgba(16,185,129,0.06);color:var(--color-ks24);">☕ KS24</th>
-                        <th style="background:rgba(59,130,246,0.06);color:var(--color-ks25);">🐍 KS25</th>
-                        <th>Chênh lệch</th>
-                        <th style="text-align:left;">Nhận định</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Sĩ số đăng ký</td>
-                        <td class="neutral">200 SV</td>
-                        <td class="neutral">429 SV</td>
-                        <td class="neutral">+229</td>
-                        <td style="text-align:left;color:var(--text-secondary);">KS25 lớn hơn 2.1x</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Tỷ lệ vắng thi</td>
-                        <td class="success">11.0%</td>
-                        <td class="danger">48.0%</td>
-                        <td class="danger">+37.0%</td>
-                        <td style="text-align:left;color:var(--text-secondary);">KS25 HN bị lỗi hệ thống</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Điểm TB Final</td>
-                        <td class="warning">5.33/10</td>
-                        <td class="danger">3.8/10</td>
-                        <td class="danger">-1.53</td>
-                        <td style="text-align:left;color:var(--text-secondary);">KS25 thấp hơn đáng kể</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Điểm TB HN</td>
-                        <td class="warning">5.87/10</td>
-                        <td class="danger">3.71/10</td>
-                        <td class="danger">-2.16</td>
-                        <td style="text-align:left;color:var(--text-secondary);">Khoảng cách lớn do lỗi khảo thí</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Điểm TB HCM</td>
-                        <td class="success">6.47/10</td>
-                        <td class="danger">3.38/10</td>
-                        <td class="danger">-3.09</td>
-                        <td style="text-align:left;color:var(--text-secondary);">HCM-KS25 cần can thiệp</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Tỷ lệ Sẵn sàng (L2+L3)</td>
-                        <td class="warning">33.0%</td>
-                        <td class="danger">4.7%</td>
-                        <td class="danger">-28.3%</td>
-                        <td style="text-align:left;color:var(--text-secondary);">KS25 chỉ đạt 1/7 KS24</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Tỷ lệ trượt thực hành</td>
-                        <td class="warning">~56.5%</td>
-                        <td class="danger">81.9%</td>
-                        <td class="danger">+25.4%</td>
-                        <td style="text-align:left;color:var(--text-secondary);">KS25: Đề thi vượt năng lực thực tế</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Độ phù hợp đề thi vs chương trình</td>
-                        <td class="success">90%</td>
-                        <td class="success">95%</td>
-                        <td class="success">+5%</td>
-                        <td style="text-align:left;color:var(--text-secondary);">Cả 2 đề thi bám sát nội dung ôn tập</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left;color:#fff;font-weight:500;">Độ phù hợp đề thi vs năng lực SV</td>
-                        <td class="warning">70%</td>
-                        <td class="danger">45%</td>
-                        <td class="danger">-25%</td>
-                        <td style="text-align:left;color:var(--text-secondary);">KS25: Áp lực thi vượt quá khả năng thực tế</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- ── KEY INSIGHTS ─────────────────────────────────────────────────── -->
-        <div class="section-title">💡 Phân tích & Kết luận Chiến lược cho Giám đốc Đào tạo</div>
-        <div class="insight-grid">
-            <div class="insight-card">
-                <div class="insight-icon">🔬</div>
-                <div class="insight-title">1. Khoảng cách Thế hệ giữa KS24 và KS25</div>
-                <div class="insight-body">
-                    KS24 (Java Spring Boot, cuối Kỳ III) đạt điểm TB <strong>5.33/10</strong> với 33% sẵn sàng nghề nghiệp. KS25 (FastAPI Python, giữa Kỳ II) chỉ đạt <strong>3.80/10</strong> với 4.7% sẵn sàng. Sự chênh lệch này là bình thường xét theo giai đoạn học tập, nhưng điểm thực hành của KS25 quá thấp (trượt 81.9%) đặt ra câu hỏi nghiêm trọng về thiết kế chương trình đào tạo kỳ II.
+            <div class="section-header">
+                <div>
+                    <div class="section-title">🏛️ Đối Chiếu 3 Khối Đào Tạo (735 Sinh Viên)</div>
+                    <div class="section-desc">Tổng hợp chỉ số phân tầng và chuẩn đầu ra toàn diện theo từng giai đoạn đào tạo</div>
                 </div>
             </div>
-            <div class="insight-card">
-                <div class="insight-icon">⚠️</div>
-                <div class="insight-title">2. Sự cố hệ thống khảo thí (HN-KS25) làm méo dữ liệu</div>
-                <div class="insight-body">
-                    177/278 SV Hà Nội của KS25 không có dữ liệu điểm CNTT (63.7%), gây nhiễu dữ liệu nghiêm trọng. Phân tích dữ liệu điểm danh thực tế xác định: <strong>~70 SV đã có mặt tại phòng thi (điểm danh P1=1) nhưng mất bài do sự cố máy chủ khảo thí ngày 10/8</strong> (67/70 thuộc ca 07:00–09:00); ~107 SV vắng thực sự. Cần tổ chức <strong>kỳ thi bù riêng cho ~70 SV bị lỗi hệ thống</strong> để phục hồi tính chính xác của dữ liệu trước khi ra bất kỳ quyết sách học thuật nào.
+
+            <!-- 3 Cohorts Grid -->
+            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:1.25rem;margin-bottom:2rem;">
+                
+                <!-- KS24 Card -->
+                <div class="bento-card" style="border-top:3px solid var(--color-ks24);display:flex;flex-direction:column;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <span class="cohort-badge-tag ks24">☕ KS24 JAVA / SPRING BOOT</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">Cuối Kỳ III</span>
+                    </div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.45;margin-bottom:1rem;">
+                        Nghiệm thu chuẩn bị Đồ án Tốt nghiệp &amp; Tuyển dụng Doanh nghiệp.
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;">
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Dự Thi / Sĩ Số</div>
+                            <div style="font-family:var(--font-heading);font-size:1.35rem;font-weight:800;color:var(--color-ks24);margin-top:0.2rem;">185 / 200</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Điểm TB Final</div>
+                            <div style="font-family:var(--font-heading);font-size:1.35rem;font-weight:800;color:var(--color-ks24);margin-top:0.2rem;">6.06/10</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Chuẩn Đầu Ra</div>
+                            <div style="font-family:var(--font-heading);font-size:1.15rem;font-weight:800;color:#34d399;margin-top:0.2rem;">110 SV (55.0%)</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">KNM / Tiếng Anh</div>
+                            <div style="font-family:var(--font-heading);font-size:1.05rem;font-weight:800;color:#a7f3d0;margin-top:0.2rem;">89.6đ / 488</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:auto;padding-top:0.75rem;border-top:1px solid var(--border-subtle);">
+                        <a href="KS24_DGNL_Report.html" style="display:block;text-align:center;padding:0.5rem;background:rgba(16,185,129,0.12);color:var(--color-ks24);border:1px solid rgba(16,185,129,0.3);border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;text-decoration:none;">Xem Chi Tiết Khóa KS24 →</a>
+                    </div>
+                </div>
+
+                <!-- KS25 Card -->
+                <div class="bento-card" style="border-top:3px solid var(--color-ks25);display:flex;flex-direction:column;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <span class="cohort-badge-tag ks25">🐍 KS25 FASTAPI / PYTHON</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">Giữa Kỳ II</span>
+                    </div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.45;margin-bottom:1rem;">
+                        Khảo sát giữa kỳ phục vụ phân tầng học thuật chuyên sâu Kỳ III.
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;">
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Dự Thi / Sĩ Số</div>
+                            <div style="font-family:var(--font-heading);font-size:1.35rem;font-weight:800;color:var(--color-ks25);margin-top:0.2rem;">262 / 429</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Điểm TB Final</div>
+                            <div style="font-family:var(--font-heading);font-size:1.35rem;font-weight:800;color:var(--color-ks25);margin-top:0.2rem;">3.77/10</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Chuẩn Đầu Ra</div>
+                            <div style="font-family:var(--font-heading);font-size:1.15rem;font-weight:800;color:#60a5fa;margin-top:0.2rem;">43 SV (10.0%)</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">KNM / Tiếng Anh</div>
+                            <div style="font-family:var(--font-heading);font-size:1.05rem;font-weight:800;color:#93c5fd;margin-top:0.2rem;">86.2đ / 397</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:auto;padding-top:0.75rem;border-top:1px solid var(--border-subtle);">
+                        <a href="KS25_DGNL_Report.html" style="display:block;text-align:center;padding:0.5rem;background:rgba(59,130,246,0.12);color:var(--color-ks25);border:1px solid rgba(59,130,246,0.3);border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;text-decoration:none;">Xem Chi Tiết Khóa KS25 →</a>
+                    </div>
+                </div>
+
+                <!-- QTKD Card -->
+                <div class="bento-card" style="border-top:3px solid var(--color-qtkd);display:flex;flex-direction:column;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <span class="cohort-badge-tag qtkd">💼 K25 QUẢN TRỊ KINH DOANH</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">Giữa Kỳ II</span>
+                    </div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.45;margin-bottom:1rem;">
+                        Nghiệm thu 11 nhóm đề án kinh doanh và bảo vệ trước Hội đồng.
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;">
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Dự Thi / Sĩ Số</div>
+                            <div style="font-family:var(--font-heading);font-size:1.35rem;font-weight:800;color:var(--color-qtkd);margin-top:0.2rem;">91 / 103</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Điểm TB Final</div>
+                            <div style="font-family:var(--font-heading);font-size:1.35rem;font-weight:800;color:var(--color-qtkd);margin-top:0.2rem;">7.15/10</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">Chuẩn Đầu Ra</div>
+                            <div style="font-family:var(--font-heading);font-size:1.15rem;font-weight:800;color:#fbbf24;margin-top:0.2rem;">61 SV (59.2%)</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02);padding:0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border-subtle);">
+                            <div style="font-size:0.68rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;">KNM / Tiếng Anh</div>
+                            <div style="font-family:var(--font-heading);font-size:1.05rem;font-weight:800;color:#fde68a;margin-top:0.2rem;">87.7đ / 327</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:auto;padding-top:0.75rem;border-top:1px solid var(--border-subtle);">
+                        <a href="QTKD_DGNL_Report.html" style="display:block;text-align:center;padding:0.5rem;background:rgba(245,158,11,0.12);color:var(--color-qtkd);border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;text-decoration:none;">Xem Chi Tiết Khối QTKD →</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Charts Row -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;">
+                <div class="bento-card">
+                    <div class="section-title" style="font-size:1rem;margin-bottom:1rem;">📈 So Sánh Điểm Chuyên Môn &amp; Kỹ Năng Mềm</div>
+                    <div style="height:240px;position:relative;">
+                        <canvas id="chartCompDash"></canvas>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="section-title" style="font-size:1rem;margin-bottom:1rem;">🎯 Phân Bố Mức Độ Năng Lực Toàn Hệ Thống</div>
+                    <div style="height:240px;position:relative;">
+                        <canvas id="chartDoughnutDash"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="insight-card">
-                <div class="insight-icon">🎯</div>
-                <div class="insight-title">3. Đề thi chuẩn học thuật nhưng vượt năng lực KS25</div>
-                <div class="insight-body">
-                    Cả 2 bộ đề thi đều phù hợp &gt;90% với chương trình ôn tập (chuẩn học thuật). Tuy nhiên, đề thực hành KS25 yêu cầu viết API 4 lớp kết nối CSDL hoàn chỉnh trong 120 phút — vượt quá phản xạ code thực tế của học viên Kỳ II. Trong khi đó, KS24 tuy đề thi khó nhưng học viên có nền tảng tốt hơn sau 3 kỳ học.
+
+        </div>
+
+        <!-- ── TAB 2: 6 LĂNG KÍNH KHẢO THÍ ─────────────────────────────────── -->
+        <div id="tab-lens" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">🔬 6 Lăng Kính Chuyên Sâu Khảo Thí &amp; Quản Trị Đào Tạo</div>
+                    <div class="section-desc">Phân tích đa chiều về phương pháp kiểm tra, độ lệch giảng viên và phễu tuyển dụng thực tế</div>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:1.25rem;margin-bottom:1.75rem;">
+                <div class="bento-card" style="border-left:4px solid var(--color-danger);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fff;font-size:0.95rem;">🌐 1. Nghịch Lý Đo Lường: Lý Thuyết vs Live-Coding</strong>
+                        <span class="status-badge danger">r = 0.14</span>
+                    </div>
+                    <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.5;">
+                        Hệ số tương quan r=0.14 cho thấy trắc nghiệm <em>không đo lường được năng lực viết code thực tế</em>. Học viên thuộc định nghĩa lý thuyết nhưng thiếu phản xạ mở IDE tự xây dựng API 4 lớp.
+                    </p>
+                </div>
+
+                <div class="bento-card" style="border-left:4px solid var(--color-warning);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fff;font-size:0.95rem;">👥 2. Hiện Tượng "Ỷ Lại Nhóm" Trong Đồ Án</strong>
+                        <span class="status-badge reduce">r = 0.71 vs 0.17</span>
+                    </div>
+                    <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.5;">
+                        KNM tương quan rất cao với điểm Sản phẩm nhóm (r=0.71) nhưng lại không tương quan với Vấn đáp 1-1 (r=0.17). Cần áp dụng hệ số Git Commit và phỏng vấn độc lập để cá nhân hóa điểm số.
+                    </p>
+                </div>
+
+                <div class="bento-card" style="border-left:4px solid var(--color-ks25);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fff;font-size:0.95rem;">🏫 3. Điểm Nghẽn Chất Lượng Giữa Các Lớp (Giảng Viên)</strong>
+                        <span class="status-badge newmod">Chênh 7.7 Lần</span>
+                    </div>
+                    <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.5;">
+                        Cùng 1 khung chương trình nhưng lớp dạy Hands-on Live Coding có điểm thực hành cao gấp 7.7 lần lớp dạy slide. Cần chuẩn hóa đồng bộ giáo án thực hành giữa tất cả các giảng viên.
+                    </p>
+                </div>
+
+                <div class="bento-card" style="border-left:4px solid var(--color-ks24);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fff;font-size:0.95rem;">💼 4. Mô Phỏng Phễu Tuyển Dụng Doanh Nghiệp</strong>
+                        <span class="status-badge upgrade">Đỗ 47.0%</span>
+                    </div>
+                    <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.5;">
+                        Chỉ <strong>87 / 185 SV (47.0%)</strong> đỗ đồng thời cả 3 vòng nếu phỏng vấn tại doanh nghiệp. 29 SV bị rơi rụng oan ở vòng vấn đáp; 20 SV rơi rụng ở vòng Live-Coding.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Funnel & Class Chart -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;">
+                <div class="bento-card">
+                    <div class="section-title" style="font-size:1rem;margin-bottom:1rem;">📉 Mô Phỏng Tỷ Lệ Đỗ Qua 4 Vòng Tuyển Dụng (KS24)</div>
+                    <div style="height:220px;position:relative;">
+                        <canvas id="chartFunnel"></canvas>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="section-title" style="font-size:1rem;margin-bottom:1rem;">🏫 Độ Phân Hóa Điểm Thực Hành Giữa Các Lớp KS25</div>
+                    <div style="height:220px;position:relative;">
+                        <canvas id="chartClassDisp"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ── RECOMMENDATIONS ──────────────────────────────────────────────── -->
-        <div class="section-title">📋 Đề xuất Hành động ưu tiên cho Giám đốc Đào tạo</div>
-        <div class="rec-section">
-            <h3>Ưu tiên ngay trong tháng 8-9/2026:</h3>
-            <div class="rec-list">
-                <div class="rec-item">
-                    <div class="rec-num urgent">!</div>
-                    <div><strong style="color:#f87171;">Khẩn: Xác định và tổ chức thi bù cho ~70 SV Hà Nội-KS25 đã có mặt nhưng bị mất bài</strong> do sự cố hệ thống khảo thí ca 7h-9h ngày 10/8 (xác định bằng cột Điểm danh P1=1 nhưng TN/TH=None). Riêng ~107 SV vắng thực sự cần xác nhận lý do trước khi quyết định thi bù hay xếp vào nhóm can thiệp. Cần đảm bảo cơ sở hạ tầng ổn định trước khi tổ chức lại. Kết quả thi bù sẽ là dữ liệu nền để xây dựng kế hoạch can thiệp học thuật chính xác.</div>
+        <!-- ── TAB 3: MA TRẬN CHẨN ĐOÁN ────────────────────────────────────── -->
+        <div id="tab-diag" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">🎯 Ma Trận Chẩn Đoán Phân Hóa Năng Lực Học Viên</div>
+                    <div class="section-desc">Phân loại 4 nhóm học viên đặc thù để áp dụng các giải pháp can thiệp đúng trọng tâm</div>
                 </div>
-                <div class="rec-item">
-                    <div class="rec-num urgent">!</div>
-                    <div><strong style="color:#f87171;">Khẩn: Áp dụng Phân luồng Học thuật cho toàn bộ KS25</strong> — TUYỆT ĐỐI KHÔNG cho tất cả 429 SV học cùng một lộ trình Kỳ III. Nhóm 1 (28% đạt chuẩn): tiếp tục lộ trình DSA, ML, RAG/LLM. Nhóm 2 (72% cần hỗ trợ + vắng thi): bắt buộc tham gia FastAPI Bootcamp phụ đạo 2 tuần, giảm tải thuật toán phức tạp trong môn DSA.</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1.25rem;margin-bottom:2rem;">
+                <div class="bento-card" style="border-top:3px solid var(--color-danger);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fb7185;font-size:0.88rem;">🔇 Vững Kỹ Thuật - Yếu Vấn Đáp</strong>
+                        <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:#fff;">29 SV</span>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;margin-bottom:0.85rem;">
+                        Code TH &ge; 65đ, Vấn đáp &lt; 50đ. Rào cản tâm lý và thiếu phản xạ trả lời theo mô hình STAR.
+                    </p>
+                    <div style="background:rgba(244,63,94,0.1);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);font-size:0.75rem;color:#fecdd3;font-weight:600;">
+                        👉 Mock Interview 1-on-1 (Không bắt học lại code)
+                    </div>
                 </div>
-                <div class="rec-item">
-                    <div class="rec-num warning">2</div>
-                    <div><strong style="color:#fbbf24;">Điều chỉnh thiết kế đề thi thực hành cho KS25 Lần 2</strong>: Rút ngắn yêu cầu từ "viết hoàn chỉnh API 4 lớp từ đầu" sang "hoàn thiện đoạn code API đã có sẵn skeleton" — giữ nguyên độ phủ kiến thức (95%) nhưng phù hợp hơn với năng lực thực tế. Cung cấp boilerplate CSDL sẵn có cho học viên trong các môn AI/RAG Kỳ III.</div>
+
+                <div class="bento-card" style="border-top:3px solid var(--color-warning);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fbbf24;font-size:0.88rem;">🗣️ Thế Mạnh KNM - Yếu Code</strong>
+                        <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:#fff;">32 SV</span>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;margin-bottom:0.85rem;">
+                        KNM &ge; 75đ, Thực hành &lt; 50đ. Dễ đỗ vòng HR nhưng trượt vòng Live-Coding chuyên môn.
+                    </p>
+                    <div style="background:rgba(245,158,11,0.1);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);font-size:0.75rem;color:#fde68a;font-weight:600;">
+                        👉 Tư vấn Chuyển luồng BA / QA / Sales sớm
+                    </div>
                 </div>
-                <div class="rec-item">
-                    <div class="rec-num">3</div>
-                    <div><strong style="color:#93c5fd;">Kế hoạch bổ trợ cho KS24 trước tốt nghiệp Kỳ IV-V</strong>: Triển khai "Bridge Module" 2 buổi đầu Kỳ IV để củng cố giao dịch đồng thời (@Transactional, Optimistic Lock) và xác thực phân quyền IDOR — hai điểm nghẽn chính của KS24 (53.8% và 54% trượt). Điều chỉnh môn DevOps tích hợp bộ quét bảo mật Semgrep/Snyk thay vì SonarQube nặng nề.</div>
+
+                <div class="bento-card" style="border-top:3px solid var(--color-danger);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fb7185;font-size:0.88rem;">🚨 Nắm Lý Thuyết - Hổng Code TH</strong>
+                        <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:#fff;">151 SV</span>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;margin-bottom:0.85rem;">
+                        TN &ge; 65đ, Thực hành &lt; 50đ. Bệnh học vẹt trắc nghiệm, chưa gõ được code API độc lập.
+                    </p>
+                    <div style="background:rgba(244,63,94,0.1);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);font-size:0.75rem;color:#fecdd3;font-weight:600;">
+                        👉 FastAPI Live-Coding Bootcamp 2 tuần
+                    </div>
                 </div>
-                <div class="rec-item">
-                    <div class="rec-num">4</div>
-                    <div><strong style="color:#93c5fd;">Thiết lập hệ thống theo dõi ĐGNL định kỳ và cảnh báo sớm</strong>: Xây dựng dashboard giám sát điểm danh và kết quả học tập theo lớp theo thời gian thực để phát hiện sớm các lớp có vấn đề (vắng nhiều, điểm thực hành thấp). Đề xuất tần suất ĐGNL: cuối Kỳ I và cuối Kỳ II cho các khóa tiếp theo.</div>
+
+                <div class="bento-card" style="border-top:3px solid var(--color-qtkd);margin-bottom:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <strong style="color:#fbbf24;font-size:0.88rem;">💼 Giỏi QTKD - Hổng Ngoại Ngữ</strong>
+                        <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:#fff;">40 SV</span>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;margin-bottom:0.85rem;">
+                        Điểm QTKD &ge; 70đ, Tiếng Anh &lt; 350đ. Rào cản khi ứng tuyển doanh nghiệp FDI / MNC.
+                    </p>
+                    <div style="background:rgba(245,158,11,0.1);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);font-size:0.75rem;color:#fde68a;font-weight:600;">
+                        👉 Business English Workshop bắt buộc Kỳ III
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ── FOOTER ───────────────────────────────────────────────────────── -->
-        <div class="report-footer">
-            <div>
-                <div style="font-weight:600;color:var(--text-secondary);">Báo cáo Tổng hợp ĐGNL Lần 1 – Hệ CNTT (KS24 & KS25)</div>
-                <div>Rikkei Education | Phòng Chuyên môn Đào tạo | Ngày phát hành: 23/08/2026</div>
+        <!-- ── TAB 4: ĐIỀU CHỈNH CHƯƠNG TRÌNH & MÔN MỚI (ULTRA-POLISHED BENTO) ── -->
+        <div id="tab-curric" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">🏛️ Quyết Sách Điều Chỉnh Khung Chương Trình Đào Tạo &amp; Môn Mới</div>
+                    <div class="section-desc">Đối soát học thuật giữa dữ liệu khảo thí ĐGNL Lần 1 và khung chương trình gốc CTĐT của Rikkei Education</div>
+                </div>
             </div>
-            <div style="text-align:right;">
-                <div>Xem chi tiết từng khóa:</div>
-                <div><a href="KS24_DGNL_Report.html" style="color:var(--color-ks24)">📊 Báo cáo KS24</a> &nbsp;|&nbsp; <a href="KS25_DGNL_Report.html" style="color:var(--color-ks25)">📊 Báo cáo KS25</a></div>
+
+            <!-- Top Summary Strip -->
+            <div class="curric-overview-strip">
+                <div class="curric-pill-stat" style="border-left:3px solid var(--color-ks24);">
+                    <div>
+                        <strong>☕ KS24 CNTT (Java / Spring Boot)</strong>
+                        <div style="font-size:0.72rem;color:var(--text-muted);">Cuối Kỳ III &rarr; Kỳ IV &amp; V</div>
+                    </div>
+                    <span class="status-badge upgrade">3 Môn Cải Tiến + 2 Môn Tự Chọn Mới</span>
+                </div>
+                <div class="curric-pill-stat" style="border-left:3px solid var(--color-ks25);">
+                    <div>
+                        <strong>🐍 KS25 CNTT (FastAPI / Python)</strong>
+                        <div style="font-size:0.72rem;color:var(--text-muted);">Giữa Kỳ II &rarr; Kỳ III</div>
+                    </div>
+                    <span class="status-badge newmod">Giảm Tải Sơ Đồ + Bổ Sung ReactJS</span>
+                </div>
+                <div class="curric-pill-stat" style="border-left:3px solid var(--color-qtkd);">
+                    <div>
+                        <strong>💼 K25 Quản Trị Kinh Doanh</strong>
+                        <div style="font-size:0.72rem;color:var(--text-muted);">Giữa Kỳ II &rarr; Kỳ III &amp; IV</div>
+                    </div>
+                    <span class="status-badge reduce">Business English + Chuẩn TOEIC 450+</span>
+                </div>
+            </div>
+
+            <!-- 3-Column Tri-Grid Layout -->
+            <div class="curric-tri-grid">
+                
+                <!-- ── COLUMN 1: KS24 ── -->
+                <div class="curric-column" style="border-top:3px solid var(--color-ks24);">
+                    <div class="curric-column-header">
+                        <div>
+                            <div class="curric-column-title">☕ KHÓA KS24 (JAVA)</div>
+                            <div class="curric-column-sub">Trọng tâm: Concurrency, DevSecOps, AI &amp; Tracing</div>
+                        </div>
+                        <span class="cohort-badge-tag ks24">Kỳ IV</span>
+                    </div>
+
+                    <!-- KS24 Subject 1 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Microservices System <span class="code-chip">IT214 • 2.5 TC</span></span>
+                            <span class="status-badge upgrade">Cải Tiến Lõi</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Lỗ hổng ĐGNL:</strong> 53.8% SV trượt tranh chấp dữ liệu; hổng bảo mật IDOR qua Gateway.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list green">
+                                <li><strong>Bridge 2 buổi đầu:</strong> Dạy củng cố <code>@Transactional</code> &amp; <strong>Pessimistic/Optimistic Locking JPA</strong>.</li>
+                                <li><strong>Token Propagation:</strong> Feign Client Interceptor truyền JWT qua API Gateway chống IDOR.</li>
+                                <li><strong>Modern Tracing:</strong> Tích hợp <strong>Micrometer + OpenTelemetry + Grafana Tempo</strong> (Spring Boot 3+).</li>
+                                <li><strong>Tối ưu Docker:</strong> Tái sử dụng Docker Compose từ DevOps IT209.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KS24 Subject 2 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">DevOps Fundamentals <span class="code-chip">IT209 • 1.9 TC</span></span>
+                            <span class="status-badge newmod">DevSecOps</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Lỗ hổng ĐGNL:</strong> Học viên thiếu công cụ kiểm tra an ninh mã nguồn tĩnh &amp; quản lý tài nguyên VPS.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list green">
+                                <li><strong>Lightweight DevSecOps:</strong> Quét lỗ hổng tĩnh bằng <strong>Semgrep / Snyk</strong> trên GitHub Actions.</li>
+                                <li><strong>PLG Observability:</strong> Setup <strong>Prometheus + Loki + Grafana</strong> (thay thế ELK Stack dễ gây tràn RAM).</li>
+                                <li><strong>DB Migration:</strong> Tự động hóa cập nhật schema bằng Flyway / Liquibase.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KS24 Subject 3 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">AI Integration <span class="code-chip">IT213 • 1.9 TC</span></span>
+                            <span class="status-badge upgrade">GenAI Agent</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Xu hướng mới:</strong> Chi phí gọi API LLM cao và yêu cầu xử lý Agent dạng đồ thị.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list green">
+                                <li><strong>Semantic Caching:</strong> Dùng RedisVL / GPTCache giảm 80% chi phí API.</li>
+                                <li><strong>Advanced AI Agents:</strong> Xây dựng Agent đồ thị đa tác vụ với <strong>LangGraph / CrewAI</strong>.</li>
+                                <li><strong>SSE Streaming:</strong> Server-Sent Events stream câu trả lời về ReactJS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── COLUMN 2: KS25 ── -->
+                <div class="curric-column" style="border-top:3px solid var(--color-ks25);">
+                    <div class="curric-column-header">
+                        <div>
+                            <div class="curric-column-title">🐍 KHÓA KS25 (PYTHON)</div>
+                            <div class="curric-column-sub">Trọng tâm: Giảm tải lý thuyết, Bootcamp &amp; Frontend</div>
+                        </div>
+                        <span class="cohort-badge-tag ks25">Kỳ II &rarr; III</span>
+                    </div>
+
+                    <!-- KS25 Subject 1 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Phân Tích Thiết Kế &amp; Agile <span class="code-chip">IT105/106</span></span>
+                            <span class="status-badge reduce">Giảm Tải Sơ Đồ</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Lỗ hổng ĐGNL:</strong> 151 SV điểm trắc nghiệm cao nhưng không biết chuyển sơ đồ thành code.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list blue">
+                                <li><strong>Cắt bỏ vẽ sơ đồ suông:</strong> Chuyển 100% sang mô hình <strong>Design-to-Code</strong>.</li>
+                                <li><strong>Thiết kế gắn liền API:</strong> Vẽ Schema ERD &rarr; Chuyển thành Pydantic Schema / SQLAlchemy Models trên FastAPI.</li>
+                                <li><strong>Agile thực chiến:</strong> Chia Sprint trên Jira/Trello và push code GitHub.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KS25 Subject 2 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">FastAPI Live-Coding <span class="code-chip">2 Tuần Đầu Kỳ III</span></span>
+                            <span class="status-badge upgrade">Bồi Dưỡng Cấp Tốc</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Lỗ hổng ĐGNL:</strong> Điểm thực hành TB chỉ 29.0/100; học viên thiếu phản xạ viết API độc lập.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list blue">
+                                <li><strong>Project Skeleton Chuẩn:</strong> Cung cấp khung code có sẵn Router/Repo để rèn phản xạ.</li>
+                                <li><strong>Tái cấu trúc kiểm tra:</strong> Live-Coding <strong>70%</strong>, Trắc nghiệm <strong>15%</strong>, Vấn đáp <strong>15%</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KS25 Subject 3 -->
+                    <div class="decision-card" style="border-left:3px solid var(--color-ks25);">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag" style="color:#60a5fa;">Frontend Framework <span class="code-chip">ReactJS / NextJS</span></span>
+                            <span class="status-badge newmod">Bổ Sung Bắt Buộc</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Khoảng trống CTĐT:</strong> KS25 thiếu hoàn toàn Frontend nâng cao &rarr; Không thể làm đồ án Fullstack.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list blue">
+                                <li><strong>Bổ sung gấp ở Kỳ III:</strong> Dạy ReactJS Hooks, TailwindCSS và NextJS App Router để hoàn thiện ứng dụng <strong>Fullstack Web/AI</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KS25 Subject 4 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Applied DSA &amp; DB <span class="code-chip">Kỳ III</span></span>
+                            <span class="status-badge upgrade">Nền Tảng AI</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Nền tảng:</strong> Cần vững tối ưu truy vấn trước khi học Machine Learning Kỳ IV.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list blue">
+                                <li><strong>Tối ưu hóa DB:</strong> Indexing PostgreSQL, Query Profiling &amp; Thuật toán cơ bản.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── COLUMN 3: QTKD ── -->
+                <div class="curric-column" style="border-top:3px solid var(--color-qtkd);">
+                    <div class="curric-column-header">
+                        <div>
+                            <div class="curric-column-title">💼 KHỐI QTKD (KINH DOANH)</div>
+                            <div class="curric-column-sub">Trọng tâm: Ngoại ngữ, Phân tích dữ liệu &amp; Pitching</div>
+                        </div>
+                        <span class="cohort-badge-tag qtkd">Kỳ II &rarr; III</span>
+                    </div>
+
+                    <!-- QTKD Subject 1 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Business English Workshop <span class="code-chip">ENG301</span></span>
+                            <span class="status-badge upgrade">Bắt Buộc Kỳ III</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Lỗ hổng ĐGNL:</strong> 40 SV điểm chuyên môn &ge; 70đ nhưng Tiếng Anh &lt; 350đ.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list gold">
+                                <li><strong>Tiếng Anh Thương Mại:</strong> Đàm phán B2B, viết Email chuyên nghiệp, thuyết trình dự án bằng Tiếng Anh.</li>
+                                <li><strong>Rèn luyện phản xạ:</strong> Thực hành giao tiếp theo tình huống doanh nghiệp đa quốc gia.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- QTKD Subject 2 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Chuẩn TOEIC &ge; 450+ <span class="code-chip">Tốt Nghiệp</span></span>
+                            <span class="status-badge reduce">Điều Kiện Cương Quyết</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Chuẩn đầu ra:</strong> Doanh nghiệp FDI / MNC yêu cầu bắt buộc giao tiếp cơ bản.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list gold">
+                                <li><strong>Quy chế tốt nghiệp:</strong> Bắt buộc có chứng chỉ TOEIC &ge; 450+ mới đủ điều kiện bảo vệ khóa luận tốt nghiệp Kỳ IV.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- QTKD Subject 3 -->
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Pitching Trước Doanh Nghiệp <span class="code-chip">PRJ404</span></span>
+                            <span class="status-badge newmod">Tuyển Dụng Trực Tiếp</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Cơ hội việc làm:</strong> Kết nối trực tiếp sản phẩm đề án với quỹ đầu tư &amp; doanh nghiệp.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list gold">
+                                <li><strong>Hội đồng thực tế:</strong> Mời đại diện doanh nghiệp tham gia chấm đề án để tuyển dụng sinh viên trực tiếp tại buổi bảo vệ.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Full-Width Electives VIP Banner -->
+            <div class="electives-master-banner">
+                <div class="electives-banner-header">
+                    <div class="electives-banner-title">
+                        <span>🌟</span> KHUYẾN NGHỊ CÁC MÔN HỌC TỰ CHỌN MỚI Ở KỲ V (MỞ RỘNG VỊ TRÍ VIỆC LÀM)
+                    </div>
+                    <span class="status-badge upgrade" style="background:rgba(139,92,246,0.2);color:#c084fc;border:1px solid rgba(139,92,246,0.4);">
+                        Đón Đầu Nhu Cầu Tuyển Dụng Doanh Nghiệp 2026 – 2027
+                    </span>
+                </div>
+
+                <div class="electives-grid-3">
+                    
+                    <div class="elective-card-box">
+                        <div>
+                            <span class="elective-target-role">🎯 Vị trí: Data Analyst / BI Developer</span>
+                            <div class="elective-card-name">1. Python &amp; Data Analytics Fundamentals</div>
+                            <p class="elective-card-desc">
+                                Xử lý, làm sạch và khai phá dữ liệu với Pandas/NumPy, truy vấn SQL nâng cao và trực quan hóa Dashboard tương tác bằng Power BI / Tableau.
+                            </p>
+                        </div>
+                        <div class="elective-skills-tag">
+                            <span>Pandas</span> • <span>SQL Analytics</span> • <span>Power BI</span> • <span>Data Pipeline</span>
+                        </div>
+                    </div>
+
+                    <div class="elective-card-box">
+                        <div>
+                            <span class="elective-target-role">🎯 Vị trí: Cloud / DevOps / SRE Engineer</span>
+                            <div class="elective-card-name">2. Cloud Native &amp; Kubernetes Scaling</div>
+                            <p class="elective-card-desc">
+                                Thực hành chuyên sâu hạ tầng đám mây AWS (EC2, S3, RDS, IAM, VPC), đóng gói Docker và điều phối cụm Container quy mô lớn với Kubernetes (K8s).
+                            </p>
+                        </div>
+                        <div class="elective-skills-tag">
+                            <span>AWS Core</span> • <span>Kubernetes (K8s)</span> • <span>Helm</span> • <span>Terraform IaC</span>
+                        </div>
+                    </div>
+
+                    <div class="elective-card-box">
+                        <div>
+                            <span class="elective-target-role">🎯 Vị trí: Fullstack AI / Web Developer</span>
+                            <div class="elective-card-name">3. Modern Fullstack AI Application</div>
+                            <p class="elective-card-desc">
+                                Xây dựng ứng dụng hoàn chỉnh kết hợp NextJS App Router Frontend với FastAPI/Spring AI Backend, tích hợp RAG và Agentic Workflows.
+                            </p>
+                        </div>
+                        <div class="elective-skills-tag">
+                            <span>NextJS 15</span> • <span>Spring AI / FastAPI</span> • <span>pgvector RAG</span> • <span>LangGraph</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── TAB 5: KẾ HOẠCH CAN THIỆP ───────────────────────────────────── -->
+        <div id="tab-plan" class="tab-pane">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">📋 Kế Hoạch Can Thiệp Sư Phạm 3 Tầng Dành Cho Giám Đốc Đào Tạo</div>
+                    <div class="section-desc">Lộ trình triển khai đồng bộ từ cấp bách 30 ngày đến tái cấu trúc chuẩn đầu ra dài hạn</div>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:1.25rem;margin-bottom:2rem;">
+                <div class="bento-card" style="border-top:3px solid var(--color-danger);margin-bottom:0;">
+                    <span class="status-badge danger" style="margin-bottom:1rem;display:inline-block;">⚡ TẦNG 1: CẤP BÁCH (0 – 30 NGÀY)</span>
+                    <ul class="action-list" style="gap:0.75rem;">
+                        <li><strong>Mock Interview 1-on-1 (KS24):</strong> Tổ chức 3 buổi phỏng vấn giả định với Tech Lead doanh nghiệp cho 29 SV giỏi code yếu vấn đáp theo phương pháp STAR.</li>
+                        <li><strong>FastAPI Live-Coding Bootcamp (KS25):</strong> Khóa bổ trợ 2 tuần cho 151 SV hổng code; cung cấp Project Skeleton sẵn để rèn phản xạ viết API.</li>
+                        <li><strong>Hội Thảo Phân Luồng BA / QA Sớm:</strong> Tư vấn chuyển luồng chuyên ngành cho 32 SV có KNM tốt nhưng không có thế mạnh code sâu.</li>
+                    </ul>
+                </div>
+
+                <div class="bento-card" style="border-top:3px solid var(--color-warning);margin-bottom:0;">
+                    <span class="status-badge reduce" style="margin-bottom:1rem;display:inline-block;">🔄 TẦNG 2: QUY TRÌNH &amp; GIẢNG VIÊN (KỲ III - IV)</span>
+                    <ul class="action-list gold" style="gap:0.75rem;">
+                        <li><strong>Quy Định "Live-Code Review 3 Phút":</strong> Bắt buộc dành 30% thời lượng mỗi buổi Lab để sinh viên thuyết trình giải pháp code cá nhân.</li>
+                        <li><strong>Chuẩn Hóa Giáo Án Giảng Viên:</strong> Chấn chỉnh phương pháp giảng dạy tại các lớp điểm thực hành dưới 20đ (HCM-CNTT8, HN-CNTT6).</li>
+                        <li><strong>Business English Workshop (QTKD):</strong> Triển khai học phần tiếng Anh thương mại bắt buộc từ Kỳ III để nâng chuẩn TOEIC &ge; 450+.</li>
+                    </ul>
+                </div>
+
+                <div class="bento-card" style="border-top:3px solid var(--color-success);margin-bottom:0;">
+                    <span class="status-badge upgrade" style="margin-bottom:1rem;display:inline-block;">🎯 TẦNG 3: KHẢO THÍ &amp; CHUẨN ĐẦU RA (DÀI HẠN)</span>
+                    <ul class="action-list green" style="gap:0.75rem;">
+                        <li><strong>Tái Cấu Trúc Đề Thi ĐGNL Lần 2:</strong> Giảm 50% câu hỏi trắc nghiệm lý thuyết, tăng thời lượng bài thi Live-Coding &amp; Vấn đáp thực tế.</li>
+                        <li><strong>Áp Dụng Bộ Chỉ Số GEI Tốt Nghiệp:</strong> GEI = Code (40%) + Vấn đáp/KNM (35%) + Ngoại ngữ (25%).</li>
+                        <li><strong>Cam Kết Chuẩn Đầu Ra Doanh Nghiệp:</strong> Đảm bảo tỷ lệ sinh viên đỗ phỏng vấn thử việc đúng chuyên ngành đạt &gt; 85% sau tốt nghiệp.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Fast Navigation Strip -->
+            <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+                <div style="font-size:0.82rem;color:var(--text-muted);">
+                    📑 Tra cứu danh bạ chi tiết và kế hoạch can thiệp từng sinh viên:
+                </div>
+                <div style="display:flex;gap:0.65rem;">
+                    <a href="KS24_DGNL_Report.html" style="padding:0.45rem 0.9rem;background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.3);border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;text-decoration:none;">☕ Chi Tiết KS24</a>
+                    <a href="KS25_DGNL_Report.html" style="padding:0.45rem 0.9rem;background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;text-decoration:none;">🐍 Chi Tiết KS25</a>
+                    <a href="QTKD_DGNL_Report.html" style="padding:0.45rem 0.9rem;background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;text-decoration:none;">💼 Chi Tiết QTKD</a>
+                </div>
             </div>
         </div>
 
-    </div><!-- /container -->
+        <!-- ── FOOTER ── -->
+        <div class="footer-bar">
+            <div>Phòng Chuyên Môn &amp; Khảo Thí Đào Tạo | PTIT Rikkei Education</div>
+            <div>Báo Cáo Tổng Hợp ĐGNL Lần 1 © 2026. Chuẩn Hóa Quản Trị Giáo Dục.</div>
+        </div>
 
+    </div>
+
+    <!-- ── CHARTS JS ── -->
     <script>
-    // ── Comparison Bar Chart ─────────────────────────────────────────────────
-    const ctx1 = document.getElementById('compChart').getContext('2d');
+    function switchExecTab(tabId, evt) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+    }
+
+    const ctx1 = document.getElementById('chartCompDash').getContext('2d');
     new Chart(ctx1, {
         type: 'bar',
         data: {
-            labels: ['HN', 'HCM', 'Toàn khóa'],
+            labels: ['☕ KS24 CNTT', '🐍 KS25 CNTT', '💼 K25 QTKD'],
             datasets: [
                 {
-                    label: '☕ KS24',
-                    data: [5.87, 6.47, 5.33],
-                    backgroundColor: 'rgba(16,185,129,0.7)',
-                    borderColor: '#10b981',
-                    borderWidth: 1.5,
-                    borderRadius: 6,
+                    label: 'Điểm TB Chuyên Môn (/10)',
+                    data: [6.06, 3.77, 7.15],
+                    backgroundColor: ['rgba(16,185,129,0.7)', 'rgba(59,130,246,0.7)', 'rgba(245,158,11,0.7)'],
+                    borderColor: ['#10b981', '#3b82f6', '#f59e0b'],
+                    borderWidth: 1.5, borderRadius: 6
                 },
                 {
-                    label: '🐍 KS25',
-                    data: [3.71, 3.38, 3.8],
-                    backgroundColor: 'rgba(59,130,246,0.7)',
-                    borderColor: '#3b82f6',
-                    borderWidth: 1.5,
-                    borderRadius: 6,
+                    label: 'Điểm TB Kỹ Năng Mềm (/10 quy đổi)',
+                    data: [8.96, 8.62, 8.77],
+                    backgroundColor: 'rgba(139,92,246,0.6)',
+                    borderColor: '#8b5cf6',
+                    borderWidth: 1.5, borderRadius: 6
                 }
             ]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            plugins: {
-                legend: { labels: { color: '#a1a1aa', font: { size: 12 } } },
-                tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '/10' } }
-            },
+            plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
             scales: {
-                y: {
-                    beginAtZero: true, max: 10,
-                    grid: { color: 'rgba(255,255,255,0.05)' },
-                    ticks: { color: '#a1a1aa', callback: v => v + '/10' }
-                },
-                x: { grid: { display: false }, ticks: { color: '#a1a1aa' } }
+                y: { beginAtZero: true, max: 10, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
             }
         }
     });
 
-    // ── Readiness Doughnut ────────────────────────────────────────────────────
-    const ctx2 = document.getElementById('readinessChart').getContext('2d');
+    const ctx2 = document.getElementById('chartDoughnutDash').getContext('2d');
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Mức 0 – Chưa đạt', 'Mức 1 – Cơ bản', 'Mức 2 – Đạt chuẩn', 'Mức 3 – Làm chủ'],
+            labels: ['Mức 3 - Làm Chủ Tốt', 'Mức 2 - Chuẩn Doanh Nghiệp', 'Mức 1 - Cơ Bản', 'Mức 0 - Chưa Đạt'],
             datasets: [{
-                data: [507, 36, 67, 19],
-                backgroundColor: ['rgba(239,68,68,0.8)', 'rgba(245,158,11,0.8)', 'rgba(59,130,246,0.8)', 'rgba(16,185,129,0.8)'],
-                borderColor: ['#ef4444','#f59e0b','#3b82f6','#10b981'],
-                borderWidth: 2, hoverOffset: 6,
+                data: [
+                    28,
+                    186,
+                    143,
+                    375
+                ],
+                backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#f43f5e'],
+                borderWidth: 2, borderColor: '#171820'
             }]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            cutout: '68%',
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: ctx => ctx.label + ': ' + ctx.parsed + ' SV (' + Math.round(ctx.parsed/629*100) + '%)'
-                    }
-                }
+            cutout: '70%',
+            plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } }
+        }
+    });
+
+    const ctx3 = document.getElementById('chartFunnel').getContext('2d');
+    new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Dự Thi (185 SV)', 'V1: CV/HR (139 SV)', 'V2: Vấn Đáp (128 SV)', 'V3: Live-Code (136 SV)', 'Đỗ Chung Cuộc (87 SV)'],
+            datasets: [{
+                data: [100, 75.1, 69.2, 73.5, 47.0],
+                backgroundColor: ['#475569', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981'],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v + '%', color: '#94a3b8' } },
+                y: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+            }
+        }
+    });
+
+    const ctx4 = document.getElementById('chartClassDisp').getContext('2d');
+    new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['HN-CNTT8 (Top 1)', 'HCM-CNTT5', 'HN-CNTT4', 'HN-CNTT1', 'HCM-CNTT6', 'HN-CNTT2', 'HN-CNTT6', 'HCM-CNTT8 (Thấp nhất)'],
+            datasets: [{
+                label: 'Điểm Thực Hành TB / 100',
+                data: [45.8, 35.8, 27.3, 25.9, 25.4, 16.3, 14.8, 5.9],
+                backgroundColor: [
+                    '#10b981', '#34d399', '#3b82f6', '#60a5fa', '#f59e0b', '#fbbf24', '#fb7185', '#f43f5e'
+                ],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, max: 50, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 } } }
             }
         }
     });

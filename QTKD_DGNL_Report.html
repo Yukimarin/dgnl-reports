@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo ĐGNL Khối K25 QTKD (Quản Trị Kinh Doanh) | Rikkei Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        
+    :root {
+        --bg-body:       #0c0d10;
+        --bg-surface:    #14151a;
+        --bg-surface-elevated: #1a1b22;
+        --bg-card:       #171820;
+        --border-subtle: #242632;
+        --border-focus:  #36394a;
+        --text-main:     #f8fafc;
+        --text-muted:    #94a3b8;
+        --text-dim:      #64748b;
+        --color-pri:     #f59e0b;
+        --color-acc:     #10b981;
+        --color-ks24:    #10b981;
+        --color-ks25:    #3b82f6;
+        --color-qtkd:    #f59e0b;
+        --color-danger:  #f43f5e;
+        --color-success: #10b981;
+        --color-warning: #f59e0b;
+        --radius-sm:     6px;
+        --radius-md:     10px;
+        --radius-lg:     14px;
+        --font-main:     'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-heading:  'Outfit', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+    body { background: var(--bg-body); color: var(--text-main); line-height: 1.5; padding-bottom: 80px; -webkit-font-smoothing: antialiased; }
+
+    /* ── HEADER ── */
+    .header {
+        background: rgba(18, 19, 26, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-subtle);
+        position: sticky; top: 0; z-index: 300;
+    }
+    .header-inner {
+        max-width: 1440px; margin: 0 auto; padding: 0.9rem 2rem;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.85rem; }
+    .logo-badge {
+        background: linear-gradient(135deg, var(--color-pri), var(--color-acc));
+        color: #fff; width: 42px; height: 42px; border-radius: var(--radius-md);
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .logo-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.12rem; color: #fff; letter-spacing: -0.2px; }
+    .logo-sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 1px; }
+    .header-meta { font-size: 0.76rem; color: var(--text-dim); text-align: right; line-height: 1.35; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1440px; margin: 1.75rem auto; padding: 0 2rem; }
+
+    /* ── TABS ── */
+    .nav-tabs-wrapper {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 0.35rem;
+        margin-bottom: 2rem;
+        display: inline-flex;
+        gap: 0.25rem;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .nav-tab-btn {
+        background: transparent; border: none; color: var(--text-muted);
+        font-family: var(--font-heading); font-size: 0.88rem; font-weight: 600;
+        padding: 0.6rem 1.25rem; border-radius: var(--radius-md); cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+    }
+    .nav-tab-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.04); }
+    .nav-tab-btn.active {
+        color: #fff; background: var(--bg-surface-elevated);
+        border: 1px solid var(--border-focus);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeInUp 0.3s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── KPI BENTO STRIP ── */
+    .kpi-grid {
+        display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-bottom: 2rem;
+    }
+    .kpi-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.15rem 1.25rem;
+        position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover { transform: translateY(-2px); border-color: var(--border-focus); }
+    .kpi-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: var(--kpi-accent, var(--color-pri));
+    }
+    .kpi-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-dim); margin-bottom: 0.35rem; font-weight: 700; }
+    .kpi-value { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1.1; }
+    .kpi-sub   { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem; font-weight: 500; }
+
+    /* ── SECTION HEADINGS ── */
+    .section-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;
+    }
+    .section-title {
+        font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;
+        color: #fff; display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.2px;
+    }
+    .section-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+    /* ── BENTO CARD BASE ── */
+    .bento-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.75rem;
+    }
+
+    /* ── BOTTLENECK ALERT BANNER ── */
+    .bottleneck-banner {
+        background: linear-gradient(180deg, rgba(244,63,94,0.08) 0%, rgba(244,63,94,0.02) 100%);
+        border: 1px solid rgba(244,63,94,0.35); border-radius: var(--radius-lg);
+        padding: 1.5rem; margin-bottom: 2rem;
+    }
+    .bottleneck-title {
+        font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #fb7185;
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .bottleneck-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .bottleneck-cell {
+        background: rgba(12, 13, 16, 0.6); border: 1px solid rgba(244,63,94,0.2);
+        border-radius: var(--radius-md); padding: 1rem; display: flex; flex-direction: column;
+    }
+    .bottleneck-cell strong { font-size: 0.84rem; color: #fff; margin-bottom: 0.35rem; display: block; }
+    .bottleneck-cell p { font-size: 0.77rem; color: var(--text-muted); line-height: 1.45; margin-top: auto; }
+
+    /* ── CURRICULUM BENTO CARDS (REDESIGNED) ── */
+    .curric-bento-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;
+    }
+    .curric-cohort-card {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .curric-cohort-header {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle);
+    }
+    .cohort-badge-tag {
+        display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem;
+        border-radius: 999px; font-size: 0.75rem; font-weight: 700; font-family: var(--font-heading);
+    }
+    .cohort-badge-tag.ks24 { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .cohort-badge-tag.ks25 { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .cohort-badge-tag.qtkd { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+    /* Subject Item Card */
+    .subject-item-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 1.15rem; transition: border-color 0.2s;
+    }
+    .subject-item-card:hover { border-color: var(--border-focus); }
+    .subject-item-top {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;
+    }
+    .subject-code {
+        font-family: var(--font-heading); font-size: 0.82rem; font-weight: 700; color: #fff;
+        display: flex; align-items: center; gap: 0.4rem;
+    }
+    .credit-tag {
+        background: rgba(255,255,255,0.06); color: var(--text-muted);
+        font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600;
+    }
+    .action-tag {
+        font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .action-tag.core { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .action-tag.sec  { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .action-tag.ai   { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .action-tag.reduce { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+    .subject-feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .subject-feature-list li {
+        font-size: 0.78rem; color: var(--text-muted); line-height: 1.45;
+        display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .subject-feature-list li strong { color: var(--text-main); font-weight: 600; }
+    .subject-feature-list li::before {
+        content: '✓'; color: var(--color-ks24); font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .subject-feature-list.blue li::before { color: var(--color-ks25); }
+    .subject-feature-list.gold li::before { color: var(--color-qtkd); }
+
+    /* Elective VIP Box */
+    .elective-vip-card {
+        background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.04) 100%);
+        border: 1px solid rgba(139,92,246,0.35); border-radius: var(--radius-lg);
+        padding: 1.25rem 1.5rem; margin-top: 0.5rem;
+    }
+    .elective-vip-title {
+        font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #c084fc;
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem;
+    }
+    .elective-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .elective-item {
+        background: rgba(12, 13, 16, 0.7); border: 1px solid rgba(139,92,246,0.25);
+        border-radius: var(--radius-md); padding: 1rem;
+    }
+    .elective-item strong { font-size: 0.84rem; color: #fff; display: block; margin-bottom: 0.35rem; }
+    .elective-item p { font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; }
+
+    /* ── TABLES ── */
+    .table-wrapper { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .data-table th, .data-table td { padding: 0.75rem 0.9rem; text-align: center; border-bottom: 1px solid var(--border-subtle); }
+    .data-table th {
+        background: var(--bg-surface-elevated); color: var(--text-muted);
+        font-family: var(--font-heading); font-weight: 600; font-size: 0.72rem;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Badges */
+    .badge {
+        display: inline-flex; align-items: center; gap: 0.25rem;
+        padding: 0.2rem 0.6rem; border-radius: 999px;
+        font-size: 0.72rem; font-weight: 700; line-height: 1.3;
+    }
+    .badge.pass { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge.lvl-3 { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .badge.lvl-2 { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge.lvl-1 { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .badge.lvl-0 { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+
+    /* Filter Bar */
+    .filter-bar {
+        display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        padding: 0.85rem 1rem; border-radius: var(--radius-lg); align-items: center;
+    }
+    .filter-input, .filter-select {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        color: #fff; padding: 0.55rem 0.85rem; border-radius: var(--radius-md);
+        font-size: 0.82rem; outline: none; transition: border-color 0.2s;
+    }
+    .filter-input:focus, .filter-select:focus { border-color: var(--color-pri); }
+
+    /* Footer */
+    .footer-bar {
+        margin-top: 3.5rem; border-top: 1px solid var(--border-subtle);
+        padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.76rem; color: var(--text-dim);
+    }
+    .footer-bar a { color: var(--color-pri); text-decoration: none; font-weight: 600; }
+    
+        
+    /* ── ENHANCED CURRICULUM SECTION STYLES ── */
+    .curric-overview-strip {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .curric-pill-stat {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 0.85rem 1.15rem;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .curric-pill-stat strong { font-size: 0.85rem; color: #fff; }
+    .curric-pill-stat span { font-size: 0.75rem; color: var(--text-muted); }
+
+    .curric-tri-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 1.75rem;
+    }
+    .curric-column {
+        background: var(--bg-surface); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.25rem;
+        display: flex; flex-direction: column; gap: 1rem;
+    }
+    .curric-column-header {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle);
+    }
+    .curric-column-title { font-family: var(--font-heading); font-size: 0.98rem; font-weight: 700; color: #fff; }
+    .curric-column-sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Modern Subject Decision Card */
+    .decision-card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); padding: 1rem;
+        display: flex; flex-direction: column; gap: 0.65rem;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .decision-card:hover { transform: translateY(-2px); border-color: var(--border-focus); }
+    
+    .decision-card-top {
+        display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+    }
+    .subject-name-tag {
+        font-family: var(--font-heading); font-size: 0.84rem; font-weight: 700; color: #fff;
+        display: flex; align-items: center; gap: 0.4rem;
+    }
+    .code-chip {
+        background: rgba(255,255,255,0.06); color: var(--text-muted);
+        font-size: 0.68rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 4px;
+    }
+    .status-badge {
+        font-size: 0.67rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .status-badge.upgrade { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .status-badge.reduce  { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .status-badge.newmod  { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .status-badge.danger  { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+
+    /* 2-Tone Problem & Action Block */
+    .gap-block {
+        background: rgba(244,63,94,0.06); border-left: 3px solid #f43f5e;
+        padding: 0.45rem 0.65rem; border-radius: 0 4px 4px 0;
+        font-size: 0.75rem; color: #fecdd3; line-height: 1.4;
+    }
+    .gap-block strong { color: #fb7185; font-weight: 700; }
+
+    .action-block {
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+        padding: 0.55rem 0.65rem; border-radius: 6px;
+    }
+    .action-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .action-list li {
+        font-size: 0.76rem; color: var(--text-muted); line-height: 1.45;
+        display: flex; gap: 0.45rem; align-items: flex-start;
+    }
+    .action-list li strong { color: #f1f5f9; font-weight: 600; }
+    .action-list li::before {
+        content: '⚡'; font-size: 0.7rem; flex-shrink: 0; margin-top: 1px; color: var(--color-pri);
+    }
+    .action-list.green li::before { color: #10b981; }
+    .action-list.blue li::before { color: #3b82f6; }
+    .action-list.gold li::before { color: #f59e0b; }
+
+    /* Wide Electives VIP Banner */
+    .electives-master-banner {
+        background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.04) 50%, rgba(16,185,129,0.04) 100%);
+        border: 1px solid rgba(139,92,246,0.35); border-radius: var(--radius-lg);
+        padding: 1.5rem;
+    }
+    .electives-banner-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;
+    }
+    .electives-banner-title {
+        font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #c084fc;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .electives-grid-3 {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .elective-card-box {
+        background: rgba(12, 13, 16, 0.7); border: 1px solid rgba(139,92,246,0.25);
+        border-radius: var(--radius-md); padding: 1.15rem;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .elective-target-role {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        background: rgba(139,92,246,0.15); color: #c084fc; border: 1px solid rgba(139,92,246,0.3);
+        font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;
+        margin-bottom: 0.5rem; text-transform: uppercase;
+    }
+    .elective-card-name { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+    .elective-card-desc { font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; }
+    .elective-skills-tag {
+        margin-top: 0.75rem; padding-top: 0.65rem; border-top: 1px solid rgba(255,255,255,0.06);
+        font-size: 0.72rem; color: #a78bfa; font-weight: 600; display: flex; gap: 0.35rem; flex-wrap: wrap;
+    }
+    
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo-wrap">
+                <div class="logo-badge" style="background:linear-gradient(135deg, #f59e0b, #d97706);">QTKD</div>
+                <div>
+                    <div class="logo-title">Báo Cáo ĐGNL Khối K25 – Quản Trị Kinh Doanh</div>
+                    <div class="logo-sub">Đánh Giá Nghiệm Thu 11 Nhóm Dự Án Thực Chiến &amp; Bản Lĩnh Thuyết Trình</div>
+                </div>
+            </div>
+            <div class="header-meta">
+                Ban Giám Đốc Đào Tạo &amp; Hội Đồng Chuyên Môn<br>
+                Cập nhật: 02/09/2026
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- NAV TABS -->
+        <div class="nav-tabs-wrapper">
+            <button class="nav-tab-btn active" onclick="switchTab('tab1', event)">📊 Tổng Quan &amp; Lớp Học</button>
+            <button class="nav-tab-btn" onclick="switchTab('tab2', event)">📁 11 Nhóm Dự Án &amp; Điều Chỉnh Chương Trình</button>
+            <button class="nav-tab-btn" onclick="switchTab('tab3', event)">🎯 Chẩn Đoán Năng Lực</button>
+            <button class="nav-tab-btn" onclick="switchTab('tab4', event)">📋 Danh Bạ Học Viên</button>
+        </div>
+
+        <!-- Master KPI Strip -->
+        <div class="kpi-grid">
+            <div class="kpi-card" style="--kpi-accent: #f59e0b;">
+                <div class="kpi-label">Sĩ Số Đăng Ký</div>
+                <div class="kpi-value">103</div>
+                <div class="kpi-sub">3 Lớp (HN-K25-QTKD1..3)</div>
+            </div>
+            <div class="kpi-card" style="--kpi-accent: #fbbf24;">
+                <div class="kpi-label">Dự Thi Thực Tế</div>
+                <div class="kpi-value">91</div>
+                <div class="kpi-sub">Tỷ lệ: 88.3%</div>
+            </div>
+            <div class="kpi-card" style="--kpi-accent: #f59e0b;">
+                <div class="kpi-label">Điểm TB Final</div>
+                <div class="kpi-value">7.15/10</div>
+                <div class="kpi-sub">Thang điểm 10 quy đổi</div>
+            </div>
+            <div class="kpi-card" style="--kpi-accent: #8b5cf6;">
+                <div class="kpi-label">Chuẩn Đầu Ra (L2+L3)</div>
+                <div class="kpi-value">61</div>
+                <div class="kpi-sub">Tỷ lệ: 59.2%</div>
+            </div>
+            <div class="kpi-card" style="--kpi-accent: #06b6d4;">
+                <div class="kpi-label">Điểm TB Kỹ Năng Mềm</div>
+                <div class="kpi-value">87.7</div>
+                <div class="kpi-sub">Thang điểm 100</div>
+            </div>
+            <div class="kpi-card" style="--kpi-accent: #3b82f6;">
+                <div class="kpi-label">Điểm TB Tiếng Anh</div>
+                <div class="kpi-value">328</div>
+                <div class="kpi-sub">Chuẩn TOEIC / 990</div>
+            </div>
+        </div>
+
+        <!-- TAB 1: TỔNG QUAN -->
+        <div id="tab1" class="tab-pane active">
+            <div class="bento-card">
+                <div class="section-title">🏫 Bảng Thống Kê Theo Lớp Học (K25 QTKD)</div>
+                <div class="table-wrapper" style="margin-top:1rem;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Lớp</th>
+                                <th>Sĩ Số</th>
+                                <th>Dự Thi</th>
+                                <th>Điểm TB Final</th>
+                                <th>Tỷ Lệ Đạt</th>
+                                <th>Chuẩn Đầu Ra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td style="text-align:left;font-weight:700;color:#fff;">HN-K25-QTKD1</td>
+            <td>34 SV</td>
+            <td>29 SV</td>
+            <td><strong style="color:var(--color-qtkd);font-size:0.95rem;">7.39/10</strong></td>
+            <td><span class="badge pass">29 SV (85.3%)</span></td>
+            <td><strong style="color:#34d399;">25 SV (73.5%)</strong></td>
+        </tr>
+        
+        <tr>
+            <td style="text-align:left;font-weight:700;color:#fff;">HN-K25-QTKD2</td>
+            <td>40 SV</td>
+            <td>37 SV</td>
+            <td><strong style="color:var(--color-qtkd);font-size:0.95rem;">6.7/10</strong></td>
+            <td><span class="badge pass">37 SV (92.5%)</span></td>
+            <td><strong style="color:#34d399;">17 SV (42.5%)</strong></td>
+        </tr>
+        
+        <tr>
+            <td style="text-align:left;font-weight:700;color:#fff;">HN-K25-QTKD3</td>
+            <td>29 SV</td>
+            <td>25 SV</td>
+            <td><strong style="color:var(--color-qtkd);font-size:0.95rem;">7.54/10</strong></td>
+            <td><span class="badge pass">25 SV (86.2%)</span></td>
+            <td><strong style="color:#34d399;">19 SV (65.5%)</strong></td>
+        </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;">
+                <div class="bento-card">
+                    <div class="section-title" style="font-size:1rem;margin-bottom:1rem;">📊 Điểm TB Theo Lớp</div>
+                    <div style="height:230px;position:relative;">
+                        <canvas id="classChartQ"></canvas>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="section-title" style="font-size:1rem;margin-bottom:1rem;">📈 Phân Bố Mức Độ Năng Lực QTKD</div>
+                    <div style="height:230px;position:relative;">
+                        <canvas id="tierDistChartQ"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: 11 NHÓM DỰ ÁN & ĐIỀU CHỈNH CHƯƠNG TRÌNH -->
+        <div id="tab2" class="tab-pane">
+            <div class="bento-card">
+                <div class="section-title">📁 Đánh Giá 11 Nhóm Dự Án Kinh Doanh Thực Chiến</div>
+                <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:1rem;margin-top:1.25rem;">
+                    
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 1</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">68.0/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (14 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Trần Khánh An 2, Hoàng Hiền Anh, La Thị Ngọc Anh, Lê Minh Đức Anh, Lê Thị Quỳnh Anh, Nguyễn Nhật Anh, Nguyễn Vân Anh, Nguyễn Đức Anh 13, Đỗ Hải Anh 2, Nguyễn Hoàng Bách 3, Trần Gia Bảo, Nguyễn Văn Chiết, Nguyễn Lê Kiều Châm, Nguyễn Bảo Châu</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 10</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">0.0/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (5 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Trịnh Bảo Châu, Trần Vũ Hoàng, Phan Viết Khánh, Vũ Thị Bảo Ngọc, Lưu Anh Tuấn</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 11</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">75.5/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (6 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Nguyễn Minh Hiếu 7, Vũ Khánh Linh 2, Lê Nam Phong, Đặng Trần Quang, Nguyễn Nhật Vy, Đinh Ngọc Đỉnh</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 2</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">73.5/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (14 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Nguyễn Thị Bắc, Đào Thị Bảo Châu, Hồ Mạnh Duy, Hồ Xuân Dũng, Hà Thùy Dương, Lê Gia Dương, Mai Thị Dương, Cao Thị Thảo Hiền, Lê Vũ Hoàng, Nguyễn Minh Hoàng 4, Vũ Ruy Hoàng, Trần Thị Hà, Đỗ Viết Hào, Trần Đức Minh</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 3</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">74.1/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (15 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Hoàng Kim Huệ, Tạ Minh Huệ, Nguyễn Thị Thu Hà 4, Bùi Thị Thu Hòa, Nguyễn Thế Hùng, Nguyễn Trần Ngọc Hùng, Đặng Gia Hưng, Nguyễn Thu Hương, Nguyễn Thị Hồng Hạnh, Hoàng Diệu Linh, Hùng Gia Linh, Lê Minh Ngọc 2, Nguyễn Bảo Ngọc 3, Đặng Thị Linh Nhi, Đào Quỳnh Trang</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 4</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">69.1/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (14 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Bùi Thị Ngọc Hằng, Cung Gia Khánh, Nguyễn An Khánh, Lê Anh Khôi, Lê Khánh Linh, Vũ Ngọc Linh, Đỗ Thùy Linh, Phạm Cao Thảo Nguyên, Lãnh Thái Ngọc, Phạm Hà Ánh Ngọc, Lê Yến Như, Hà Thị Quỳnh, Vũ Thanh Thảo, Phạm Thùy Trang</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 5</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">73.7/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (12 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Nguyễn Thị Khánh Linh 2, Hoàng Cẩm Ly, Trần Quang Minh 3, Nguyễn Phương Yến Nhi, Ngô Minh Nhật, Trần Thị Diễm Quỳnh, Ngô Công Sơn, Đinh Công Thắng, Bùi Hà Uyên, Trần Thu Uyên, Nguyễn Thành Đạt 4, Đặng Ngọc Đạt</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 6</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">67.2/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (10 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Hoàng Thanh Nam, Đào Thị Hải Ninh, Vũ Thị Minh Phương, Trần Võ Huy Thành, Vũ Anh Thư, Lê Thị Kiều Trang, Cù Thị Mai Uyên, Đinh Hà Vy, Lê Thị Thanh Vân, Đỗ Ngọc Ánh</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 7</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">72.0/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (4 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Nguyễn Phương Thảo 3, Trần Thị Thu Thảo, Nguyễn Bắc Việt Tiến, Nguyễn Thị Trang 2</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 8</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">80.5/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (3 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Đỗ Duy Trường, Đào Thị Ánh Tuyết, Lã Nguyễn Hải Yến</div>
+        </div>
+        
+        <div class="decision-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <span style="font-weight:700;color:#fff;font-size:0.9rem;">📁 Nhóm 9</span>
+                <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:800;color:var(--color-qtkd);">71.0/100</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;">Thành viên (6 SV):</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.4;">Nguyễn Phương Linh, Phạm Lê, Nguyễn Đức Mạnh 4, Hoàng Quốc Trung, Mai Thảo Vi, Nguyễn Văn Việt</div>
+        </div>
+        
+                </div>
+            </div>
+
+            <!-- CURRICULUM BENTO GRID QTKD -->
+            <div class="bento-card" style="border-top:3px solid var(--color-qtkd);">
+                <div class="section-title">🏛️ Chi Tiết Điều Chỉnh Khung Chương Trình Ngoại Ngữ &amp; Đề Án Kỳ III (QTKD)</div>
+                <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:1.25rem;margin-top:1.25rem;">
+                    
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Business English Workshop <span class="code-chip">ENG301</span></span>
+                            <span class="status-badge upgrade">Bắt Buộc Kỳ III</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Lỗ hổng ĐGNL:</strong> 40 SV điểm chuyên môn &ge; 70đ nhưng Tiếng Anh &lt; 350đ.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list gold">
+                                <li><strong>Tiếng Anh Thương Mại:</strong> Đàm phán B2B, viết Email chuyên nghiệp, thuyết trình dự án bằng Tiếng Anh.</li>
+                                <li><strong>Rèn luyện phản xạ:</strong> Thực hành giao tiếp theo tình huống doanh nghiệp đa quốc gia.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Chuẩn TOEIC &ge; 450+ <span class="code-chip">Tốt Nghiệp</span></span>
+                            <span class="status-badge reduce">Điều Kiện Cương Quyết</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Chuẩn đầu ra:</strong> Doanh nghiệp FDI / MNC yêu cầu bắt buộc giao tiếp cơ bản.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list gold">
+                                <li><strong>Quy chế tốt nghiệp:</strong> Bắt buộc có chứng chỉ TOEIC &ge; 450+ mới đủ điều kiện bảo vệ khóa luận tốt nghiệp Kỳ IV.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="decision-card">
+                        <div class="decision-card-top">
+                            <span class="subject-name-tag">Pitching Trước Doanh Nghiệp <span class="code-chip">PRJ404</span></span>
+                            <span class="status-badge newmod">Tuyển Dụng Trực Tiếp</span>
+                        </div>
+                        <div class="gap-block">
+                            <strong>⚠️ Cơ hội việc làm:</strong> Kết nối trực tiếp sản phẩm đề án với quỹ đầu tư &amp; doanh nghiệp.
+                        </div>
+                        <div class="action-block">
+                            <ul class="action-list gold">
+                                <li><strong>Hội đồng thực tế:</strong> Mời đại diện doanh nghiệp tham gia chấm đề án để tuyển dụng sinh viên trực tiếp tại buổi bảo vệ.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: CHẨN ĐOÁN -->
+        <div id="tab3" class="tab-pane">
+            <div class="bento-card">
+                <div class="section-title">🎯 Ma Trận Chẩn Đoán Năng Lực QTKD</div>
+                <div class="section-desc" style="margin-bottom:1.25rem;">
+                    Click vào thẻ bất kỳ để lọc danh bạ học viên tương ứng:
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1.25rem;">
+                    <div class="decision-card" onclick="quickFilterDiag('Khoảng trống Ngoại ngữ')" style="cursor:pointer;border-top:3px solid var(--color-warning);">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <strong style="color:#fbbf24;font-size:0.88rem;">💼 Giỏi QTKD - Yếu Ngoại Ngữ</strong>
+                            <span style="font-family:var(--font-heading);font-weight:800;font-size:1.2rem;color:#fff;">43 SV</span>
+                        </div>
+                        <p style="font-size:0.76rem;color:var(--text-muted);margin-top:0.4rem;line-height:1.4;">
+                            Điểm QTKD &ge; 70đ, TA &lt; 350đ &rarr; <span style="color:#fde68a;font-weight:600;">Business English Workshop</span>
+                        </p>
+                    </div>
+
+                    <div class="decision-card" onclick="quickFilterDiag('Sẵn sàng Doanh nghiệp Quốc tế')" style="cursor:pointer;border-top:3px solid var(--color-success);">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <strong style="color:#34d399;font-size:0.88rem;">🌟 Sẵn Sàng Quốc Tế / FDI</strong>
+                            <span style="font-family:var(--font-heading);font-weight:800;font-size:1.2rem;color:#fff;">5 SV</span>
+                        </div>
+                        <p style="font-size:0.76rem;color:var(--text-muted);margin-top:0.4rem;line-height:1.4;">
+                            Vững chuyên môn, TA &ge; 450đ &rarr; <span style="color:#a7f3d0;font-weight:600;">Management Trainee</span>
+                        </p>
+                    </div>
+
+                    <div class="decision-card" onclick="quickFilterDiag('Thế mạnh Đàm phán')" style="cursor:pointer;border-top:3px solid var(--color-pri);">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <strong style="color:#60a5fa;font-size:0.88rem;">🗣️ Thế Mạnh B2B Sales / Account</strong>
+                            <span style="font-family:var(--font-heading);font-weight:800;font-size:1.2rem;color:#fff;">27 SV</span>
+                        </div>
+                        <p style="font-size:0.76rem;color:var(--text-muted);margin-top:0.4rem;line-height:1.4;">
+                            KNM &ge; 85đ &rarr; <span style="color:#93c5fd;font-weight:600;">Chuyên viên Phát triển KD</span>
+                        </p>
+                    </div>
+
+                    <div class="decision-card" onclick="quickFilterDiag('Chưa đạt Chuẩn')" style="cursor:pointer;border-top:3px solid var(--border-focus);">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <strong style="color:#e4e4e7;font-size:0.88rem;">⚠️ Cần Phụ Đạo / Trung Gian</strong>
+                            <span style="font-family:var(--font-heading);font-weight:800;font-size:1.2rem;color:#fff;">16 SV</span>
+                        </div>
+                        <p style="font-size:0.76rem;color:var(--text-muted);margin-top:0.4rem;line-height:1.4;">
+                            Phụ đạo lập kế hoạch kinh doanh
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: DANH BẠ HỌC VIÊN -->
+        <div id="tab4" class="tab-pane">
+            <div class="filter-bar">
+                <input type="text" id="searchInput" class="filter-input" placeholder="🔍 Tìm kiếm sinh viên theo tên..." style="flex:1;min-width:200px;" oninput="applyFilters()">
+                <select id="classFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">-- Tất cả Lớp --</option>
+                    <option value="HN-K25-QTKD1">HN-K25-QTKD1</option><option value="HN-K25-QTKD2">HN-K25-QTKD2</option><option value="HN-K25-QTKD3">HN-K25-QTKD3</option>
+                </select>
+                <select id="tierFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">-- Mức Độ Năng Lực --</option>
+                    <option value="3">Mức 3: Làm Chủ Tốt</option>
+                    <option value="2">Mức 2: Đạt Chuẩn Đầu Ra</option>
+                    <option value="1">Mức 1: Đạt Cơ Bản / Cần Bổ Trợ</option>
+                    <option value="0">Mức 0: Chưa Đạt / Vắng Thi</option>
+                </select>
+                <select id="personaFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">-- Chẩn Đoán Năng Lực --</option>
+                    <option value="Khoảng trống Ngoại ngữ">💼 Giỏi QTKD - Yếu Ngoại ngữ (43 SV)</option>
+                    <option value="Sẵn sàng Doanh nghiệp Quốc tế">🌟 Sẵn sàng Quốc tế (5 SV)</option>
+                    <option value="Thế mạnh Đàm phán">🗣️ Thế mạnh Sales / Account (27 SV)</option>
+                    <option value="Chưa đạt Chuẩn Kiến thức Cốt lõi">🚨 Cần Phụ đạo Kiến thức (0 SV)</option>
+                    <option value="Đạt Mức Trung bình Cơ bản">🔷 Mức Trung bình Cơ bản (16 SV)</option>
+                    <option value="Vắng thi">⚪ Vắng thi / Chưa có bài (12 SV)</option>
+                </select>
+            </div>
+
+            <div class="bento-card">
+                <div class="section-title">
+                    <span>📋 Danh Bạ Khảo Thí &amp; Kế Hoạch Can Thiệp (<span id="recCount">103</span> SV)</span>
+                </div>
+                <div class="table-wrapper" style="margin-top:1rem;">
+                    <table class="data-table" id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Họ và Tên</th>
+                                <th>Lớp</th>
+                                <th>Final / 10</th>
+                                <th>Điểm Dự Án</th>
+                                <th>Nhóm</th>
+                                <th>KNM</th>
+                                <th>Tiếng Anh</th>
+                                <th>Mức Độ</th>
+                                <th>Chẩn Đoán</th>
+                                <th>Kế Hoạch Can Thiệp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            
+        <tr class="student-row" data-name="trần khánh an 2" data-class="HN-K25-QTKD1" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>1</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Khánh An 2</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 1</td>
+            <td>70.0</td>
+            <td>330</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hoàng hiền anh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>2</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hoàng Hiền Anh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.3</strong></td>
+            <td>63.5</td>
+            <td>Nhóm 1</td>
+            <td>91.0</td>
+            <td>330</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="la thị ngọc anh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>3</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">La Thị Ngọc Anh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.3</strong></td>
+            <td>63.5</td>
+            <td>Nhóm 1</td>
+            <td>94.0</td>
+            <td>255</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê minh đức anh" data-class="HN-K25-QTKD3" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>4</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Minh Đức Anh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 1</td>
+            <td>68.0</td>
+            <td>270</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê thị quỳnh anh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>5</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Thị Quỳnh Anh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.3</strong></td>
+            <td>63.5</td>
+            <td>Nhóm 1</td>
+            <td>84.0</td>
+            <td>255</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn nhật anh" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>6</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Nhật Anh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 1</td>
+            <td>100.0</td>
+            <td>360</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn vân anh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>7</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Vân Anh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.3</strong></td>
+            <td>63.5</td>
+            <td>Nhóm 1</td>
+            <td>94.0</td>
+            <td>305</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn đức anh 13" data-class="HN-K25-QTKD1" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>8</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Đức Anh 13</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 1</td>
+            <td>63.0</td>
+            <td>260</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đỗ hải anh 2" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>9</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đỗ Hải Anh 2</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 1</td>
+            <td>84.0</td>
+            <td>245</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn hoàng bách 3" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế">
+            <td>10</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Hoàng Bách 3</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 1</td>
+            <td>100.0</td>
+            <td>570</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-success">Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Ưu tiên giới thiệu vào các chương trình Quản trị viên Tập sự (Management Trainee) tại doanh nghiệp đa quốc gia.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần gia bảo" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>11</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Gia Bảo</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.3</strong></td>
+            <td>63.5</td>
+            <td>Nhóm 1</td>
+            <td>100.0</td>
+            <td>325</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thị bắc" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>12</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thị Bắc</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>69.5</td>
+            <td>Nhóm 2</td>
+            <td>90.0</td>
+            <td>300</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn văn chiết" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>13</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Văn Chiết</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 1</td>
+            <td>97.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn lê kiều châm" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>14</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Lê Kiều Châm</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 1</td>
+            <td>88.0</td>
+            <td>275</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn bảo châu" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế">
+            <td>15</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Bảo Châu</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 1</td>
+            <td>85.0</td>
+            <td>680</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-success">Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Ưu tiên giới thiệu vào các chương trình Quản trị viên Tập sự (Management Trainee) tại doanh nghiệp đa quốc gia.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trịnh bảo châu" data-class="HN-K25-QTKD1" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>16</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trịnh Bảo Châu</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 10</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đào thị bảo châu" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>17</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đào Thị Bảo Châu</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>69.5</td>
+            <td>Nhóm 2</td>
+            <td>88.0</td>
+            <td>360</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hồ mạnh duy" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>18</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hồ Mạnh Duy</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>69.5</td>
+            <td>Nhóm 2</td>
+            <td>84.0</td>
+            <td>270</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hồ xuân dũng" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>19</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hồ Xuân Dũng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.8</strong></td>
+            <td>78.0</td>
+            <td>Nhóm 2</td>
+            <td>100.0</td>
+            <td>395</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hà thùy dương" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>20</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hà Thùy Dương</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>69.5</td>
+            <td>Nhóm 2</td>
+            <td>72.0</td>
+            <td>235</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê gia dương" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>21</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Gia Dương</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 2</td>
+            <td>100.0</td>
+            <td>260</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="mai thị dương" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>22</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Mai Thị Dương</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.7</strong></td>
+            <td>77.0</td>
+            <td>Nhóm 2</td>
+            <td>100.0</td>
+            <td>260</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn minh hiếu 7" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>23</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Minh Hiếu 7</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.7</strong></td>
+            <td>77.0</td>
+            <td>Nhóm 11</td>
+            <td>90.0</td>
+            <td>295</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="cao thị thảo hiền" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>24</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Cao Thị Thảo Hiền</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.7</strong></td>
+            <td>77.0</td>
+            <td>Nhóm 2</td>
+            <td>100.0</td>
+            <td>315</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê vũ hoàng" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>25</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Vũ Hoàng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 2</td>
+            <td>100.0</td>
+            <td>405</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn minh hoàng 4" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>26</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Minh Hoàng 4</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>69.5</td>
+            <td>Nhóm 2</td>
+            <td>97.0</td>
+            <td>475</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần vũ hoàng" data-class="HN-K25-QTKD1" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>27</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Vũ Hoàng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 10</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ ruy hoàng" data-class="HN-K25-QTKD3" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>28</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Ruy Hoàng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.7</strong></td>
+            <td>77.0</td>
+            <td>Nhóm 2</td>
+            <td>60.0</td>
+            <td>245</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hoàng kim huệ" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>29</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hoàng Kim Huệ</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.5</strong></td>
+            <td>75.0</td>
+            <td>Nhóm 3</td>
+            <td>86.0</td>
+            <td>350</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="tạ minh huệ" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>30</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Tạ Minh Huệ</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.5</strong></td>
+            <td>75.0</td>
+            <td>Nhóm 3</td>
+            <td>0.0</td>
+            <td>395</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thị thu hà 4" data-class="HN-K25-QTKD2" data-tier="3" data-persona="Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế">
+            <td>31</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thị Thu Hà 4</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.5</strong></td>
+            <td>75.0</td>
+            <td>Nhóm 3</td>
+            <td>94.0</td>
+            <td>480</td>
+            <td><span class="badge lvl-3">Mức 3: Năng lực Xuất sắc / Sẵn sàng Môi trường Quốc tế</span></td>
+            <td style="text-align:left;"><span class="badge badge-success">Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Ưu tiên giới thiệu vào các chương trình Quản trị viên Tập sự (Management Trainee) tại doanh nghiệp đa quốc gia.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần thị hà" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>32</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Thị Hà</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.7</strong></td>
+            <td>77.0</td>
+            <td>Nhóm 2</td>
+            <td>95.0</td>
+            <td>220</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đỗ viết hào" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>33</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đỗ Viết Hào</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.8</strong></td>
+            <td>78.0</td>
+            <td>Nhóm 2</td>
+            <td>95.0</td>
+            <td>430</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="bùi thị thu hòa" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>34</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Bùi Thị Thu Hòa</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 3</td>
+            <td>95.0</td>
+            <td>395</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thế hùng" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>35</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thế Hùng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 3</td>
+            <td>100.0</td>
+            <td>390</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn trần ngọc hùng" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>36</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Trần Ngọc Hùng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 3</td>
+            <td>90.0</td>
+            <td>395</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đặng gia hưng" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>37</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đặng Gia Hưng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.5</strong></td>
+            <td>75.0</td>
+            <td>Nhóm 3</td>
+            <td>94.0</td>
+            <td>240</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thu hương" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>38</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thu Hương</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.5</strong></td>
+            <td>75.0</td>
+            <td>Nhóm 3</td>
+            <td>94.0</td>
+            <td>350</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thị hồng hạnh" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>39</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thị Hồng Hạnh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 3</td>
+            <td>82.0</td>
+            <td>345</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="bùi thị ngọc hằng" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>40</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Bùi Thị Ngọc Hằng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.4</strong></td>
+            <td>64.0</td>
+            <td>Nhóm 4</td>
+            <td>91.0</td>
+            <td>285</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="cung gia khánh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>41</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Cung Gia Khánh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.4</strong></td>
+            <td>64.0</td>
+            <td>Nhóm 4</td>
+            <td>97.0</td>
+            <td>345</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn an khánh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>42</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn An Khánh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.4</strong></td>
+            <td>64.0</td>
+            <td>Nhóm 4</td>
+            <td>85.0</td>
+            <td>410</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="phan viết khánh" data-class="HN-K25-QTKD1" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>43</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Phan Viết Khánh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 10</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê anh khôi" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>44</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Anh Khôi</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.4</strong></td>
+            <td>64.0</td>
+            <td>Nhóm 4</td>
+            <td>85.0</td>
+            <td>315</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hoàng diệu linh" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>45</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hoàng Diệu Linh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 3</td>
+            <td>89.0</td>
+            <td>245</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hùng gia linh" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>46</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hùng Gia Linh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 3</td>
+            <td>94.0</td>
+            <td>420</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê khánh linh" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế">
+            <td>47</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Khánh Linh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 4</td>
+            <td>76.0</td>
+            <td>510</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-success">Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Ưu tiên giới thiệu vào các chương trình Quản trị viên Tập sự (Management Trainee) tại doanh nghiệp đa quốc gia.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn phương linh" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>48</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Phương Linh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 9</td>
+            <td>94.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thị khánh linh 2" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>49</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thị Khánh Linh 2</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.8</strong></td>
+            <td>58.0</td>
+            <td>Nhóm 5</td>
+            <td>100.0</td>
+            <td>240</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ khánh linh 2" data-class="HN-K25-QTKD3" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>50</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Khánh Linh 2</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 11</td>
+            <td>0.0</td>
+            <td>230</td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ ngọc linh" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>51</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Ngọc Linh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.5</strong></td>
+            <td>65.0</td>
+            <td>Nhóm 4</td>
+            <td>100.0</td>
+            <td>555</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đỗ thùy linh" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>52</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đỗ Thùy Linh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.5</strong></td>
+            <td>65.0</td>
+            <td>Nhóm 4</td>
+            <td>89.0</td>
+            <td>395</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hoàng cẩm ly" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>53</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hoàng Cẩm Ly</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.8</strong></td>
+            <td>58.0</td>
+            <td>Nhóm 5</td>
+            <td>82.0</td>
+            <td>345</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="phạm lê" data-class="HN-K25-QTKD2" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>54</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Phạm Lê</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 9</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần quang minh 3" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>55</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Quang Minh 3</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.8</strong></td>
+            <td>58.0</td>
+            <td>Nhóm 5</td>
+            <td>82.0</td>
+            <td>250</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần đức minh" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế">
+            <td>56</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Đức Minh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.7</strong></td>
+            <td>77.0</td>
+            <td>Nhóm 2</td>
+            <td>83.0</td>
+            <td>510</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-success">Năng lực Toàn diện / Sẵn sàng Doanh nghiệp Quốc tế</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Ưu tiên giới thiệu vào các chương trình Quản trị viên Tập sự (Management Trainee) tại doanh nghiệp đa quốc gia.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn đức mạnh 4" data-class="HN-K25-QTKD2" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>57</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Đức Mạnh 4</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 9</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hoàng thanh nam" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>58</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hoàng Thanh Nam</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.3</strong></td>
+            <td>53.5</td>
+            <td>Nhóm 6</td>
+            <td>100.0</td>
+            <td>325</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="phạm cao thảo nguyên" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>59</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Phạm Cao Thảo Nguyên</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.5</strong></td>
+            <td>65.0</td>
+            <td>Nhóm 4</td>
+            <td>88.0</td>
+            <td>360</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lãnh thái ngọc" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>60</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lãnh Thái Ngọc</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.5</strong></td>
+            <td>65.0</td>
+            <td>Nhóm 4</td>
+            <td>92.0</td>
+            <td>305</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê minh ngọc 2" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>61</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Minh Ngọc 2</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 3</td>
+            <td>75.0</td>
+            <td>210</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn bảo ngọc 3" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>62</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Bảo Ngọc 3</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 3</td>
+            <td>95.0</td>
+            <td>350</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="phạm hà ánh ngọc" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Thế mạnh Đàm phán & Giao tiếp Thương mại">
+            <td>63</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Phạm Hà Ánh Ngọc</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">6.5</strong></td>
+            <td>65.0</td>
+            <td>Nhóm 4</td>
+            <td>89.0</td>
+            <td>570</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Thế mạnh Đàm phán & Giao tiếp Thương mại</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Định hướng phát triển vị trí Chuyên viên Phát triển Kinh doanh (B2B Sales) & Quản lý Khách hàng (Account Executive).</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ thị bảo ngọc" data-class="HN-K25-QTKD1" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>64</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Thị Bảo Ngọc</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 10</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn phương yến nhi" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>65</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Phương Yến Nhi</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.8</strong></td>
+            <td>78.0</td>
+            <td>Nhóm 5</td>
+            <td>83.0</td>
+            <td>275</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đặng thị linh nhi" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>66</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đặng Thị Linh Nhi</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 3</td>
+            <td>84.0</td>
+            <td>215</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê yến như" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>67</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Yến Như</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 4</td>
+            <td>100.0</td>
+            <td>245</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="ngô minh nhật" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>68</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Ngô Minh Nhật</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.8</strong></td>
+            <td>78.0</td>
+            <td>Nhóm 5</td>
+            <td>80.0</td>
+            <td>315</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đào thị hải ninh" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>69</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đào Thị Hải Ninh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.3</strong></td>
+            <td>53.5</td>
+            <td>Nhóm 6</td>
+            <td>100.0</td>
+            <td>305</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê nam phong" data-class="HN-K25-QTKD3" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>70</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Nam Phong</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 11</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ thị minh phương" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>71</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Thị Minh Phương</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.3</strong></td>
+            <td>53.5</td>
+            <td>Nhóm 6</td>
+            <td>73.0</td>
+            <td>275</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đặng trần quang" data-class="HN-K25-QTKD3" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>72</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đặng Trần Quang</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 11</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hà thị quỳnh" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>73</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hà Thị Quỳnh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 4</td>
+            <td>88.0</td>
+            <td>305</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần thị diễm quỳnh" data-class="HN-K25-QTKD1" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>74</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Thị Diễm Quỳnh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.8</strong></td>
+            <td>78.0</td>
+            <td>Nhóm 5</td>
+            <td>68.0</td>
+            <td>355</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="ngô công sơn" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>75</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Ngô Công Sơn</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.0</strong></td>
+            <td>70.0</td>
+            <td>Nhóm 5</td>
+            <td>94.0</td>
+            <td>275</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần võ huy thành" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>76</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Võ Huy Thành</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.3</strong></td>
+            <td>53.5</td>
+            <td>Nhóm 6</td>
+            <td>85.0</td>
+            <td>290</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ anh thư" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>77</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Anh Thư</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fbbf24;font-size:1.05rem;">5.3</strong></td>
+            <td>53.5</td>
+            <td>Nhóm 6</td>
+            <td>94.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn phương thảo 3" data-class="HN-K25-QTKD2" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>78</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Phương Thảo 3</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.2</strong></td>
+            <td>72.0</td>
+            <td>Nhóm 7</td>
+            <td>69.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần thị thu thảo" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>79</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Thị Thu Thảo</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.2</strong></td>
+            <td>72.0</td>
+            <td>Nhóm 7</td>
+            <td>94.0</td>
+            <td>240</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="vũ thanh thảo" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>80</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Vũ Thanh Thảo</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 4</td>
+            <td>75.0</td>
+            <td>255</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đinh công thắng" data-class="HN-K25-QTKD1" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>81</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đinh Công Thắng</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.8</strong></td>
+            <td>78.0</td>
+            <td>Nhóm 5</td>
+            <td>66.0</td>
+            <td>290</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn bắc việt tiến" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>82</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Bắc Việt Tiến</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.2</strong></td>
+            <td>72.0</td>
+            <td>Nhóm 7</td>
+            <td>97.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê thị kiều trang" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>83</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Thị Kiều Trang</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>81.0</td>
+            <td>Nhóm 6</td>
+            <td>89.0</td>
+            <td>290</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thị trang 2" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>84</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thị Trang 2</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.2</strong></td>
+            <td>72.0</td>
+            <td>Nhóm 7</td>
+            <td>86.0</td>
+            <td>245</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="phạm thùy trang" data-class="HN-K25-QTKD3" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>85</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Phạm Thùy Trang</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 4</td>
+            <td>0.0</td>
+            <td>295</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đào quỳnh trang" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>86</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đào Quỳnh Trang</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.9</strong></td>
+            <td>79.0</td>
+            <td>Nhóm 3</td>
+            <td>94.0</td>
+            <td>10</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="hoàng quốc trung" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>87</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Hoàng Quốc Trung</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 9</td>
+            <td>79.0</td>
+            <td>380</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đỗ duy trường" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>88</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đỗ Duy Trường</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>80.5</td>
+            <td>Nhóm 8</td>
+            <td>79.0</td>
+            <td>280</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đào thị ánh tuyết" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>89</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đào Thị Ánh Tuyết</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>80.5</td>
+            <td>Nhóm 8</td>
+            <td>85.0</td>
+            <td>225</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lưu anh tuấn" data-class="HN-K25-QTKD1" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>90</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lưu Anh Tuấn</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 10</td>
+            <td>80.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="bùi hà uyên" data-class="HN-K25-QTKD3" data-tier="1" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>91</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Bùi Hà Uyên</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.2</strong></td>
+            <td>82.0</td>
+            <td>Nhóm 5</td>
+            <td>70.0</td>
+            <td>385</td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="cù thị mai uyên" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Đạt Mức Trung bình Cơ bản">
+            <td>92</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Cù Thị Mai Uyên</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>81.0</td>
+            <td>Nhóm 6</td>
+            <td>84.0</td>
+            <td>385</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-info">Đạt Mức Trung bình Cơ bản</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Nâng cao kỹ năng lập kế hoạch Marketing số và Quản trị vận hành.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="trần thu uyên" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>93</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Trần Thu Uyên</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.2</strong></td>
+            <td>82.0</td>
+            <td>Nhóm 5</td>
+            <td>88.0</td>
+            <td>285</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="mai thảo vi" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>94</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Mai Thảo Vi</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.1</strong></td>
+            <td>71.0</td>
+            <td>Nhóm 9</td>
+            <td>80.0</td>
+            <td>270</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn văn việt" data-class="HN-K25-QTKD2" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>95</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Văn Việt</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 9</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn nhật vy" data-class="HN-K25-QTKD3" data-tier="0" data-persona="Vắng thi / Cần xác minh lý do khảo thí">
+            <td>96</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Nhật Vy</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#fb7185;font-size:1.05rem;">0.0</strong></td>
+            <td>0.0</td>
+            <td>Nhóm 11</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-0">Mức 0: Chưa tham gia khảo thí / Vắng thi</span></td>
+            <td style="text-align:left;"><span class="badge badge-muted">Vắng thi / Cần xác minh lý do khảo thí</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Xác nhận lý do vắng và tổ chức bảo vệ dự án bổ sung.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đinh hà vy" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>97</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đinh Hà Vy</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>81.0</td>
+            <td>Nhóm 6</td>
+            <td>94.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lê thị thanh vân" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>98</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lê Thị Thanh Vân</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>81.0</td>
+            <td>Nhóm 6</td>
+            <td>88.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="lã nguyễn hải yến" data-class="HN-K25-QTKD2" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>99</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Lã Nguyễn Hải Yến</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD2</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>80.5</td>
+            <td>Nhóm 8</td>
+            <td>97.0</td>
+            <td>330</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đỗ ngọc ánh" data-class="HN-K25-QTKD1" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>100</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đỗ Ngọc Ánh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD1</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.1</strong></td>
+            <td>81.0</td>
+            <td>Nhóm 6</td>
+            <td>95.0</td>
+            <td>330</td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="nguyễn thành đạt 4" data-class="HN-K25-QTKD3" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>101</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Nguyễn Thành Đạt 4</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.2</strong></td>
+            <td>82.0</td>
+            <td>Nhóm 5</td>
+            <td>0.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đặng ngọc đạt" data-class="HN-K25-QTKD3" data-tier="2" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>102</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đặng Ngọc Đạt</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#34d399;font-size:1.05rem;">8.2</strong></td>
+            <td>82.0</td>
+            <td>Nhóm 5</td>
+            <td>83.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-2">Mức 2: Đạt Chuẩn Đầu ra Doanh nghiệp</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+        <tr class="student-row" data-name="đinh ngọc đỉnh" data-class="HN-K25-QTKD3" data-tier="1" data-persona="Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ">
+            <td>103</td>
+            <td style="text-align:left;font-weight:600;color:#fff;">Đinh Ngọc Đỉnh</td>
+            <td style="text-align:left;color:var(--text-muted);">HN-K25-QTKD3</td>
+            <td><strong style="color:#60a5fa;font-size:1.05rem;">7.4</strong></td>
+            <td>74.0</td>
+            <td>Nhóm 11</td>
+            <td>70.0</td>
+            <td><span style="color:var(--text-dim);">-</span></td>
+            <td><span class="badge lvl-1">Mức 1: Đạt Yêu cầu Cơ bản / Cần Bổ trợ</span></td>
+            <td style="text-align:left;"><span class="badge badge-warning">Vững Chuyên môn & Thuyết trình - Khoảng trống Ngoại ngữ</span></td>
+            <td style="text-align:left;font-size:0.77rem;color:var(--text-muted);max-width:280px;line-height:1.4;">Bắt buộc tham gia Khóa Học Bổ trợ Tiếng Anh Thương mại (Business English Workshop) từ Kỳ III.</td>
+        </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bar">
+            <div>Phòng Chuyên Môn &amp; Khảo Thí Đào Tạo | PTIT Rikkei Education</div>
+            <div><a href="Executive_Summary_DGNL_Report.html">📑 Về Báo Cáo Tổng Hợp Ban Giám Đốc</a></div>
+        </div>
+
+    </div>
+
+    <script>
+    function switchTab(tabId, evt) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+    }
+
+    function quickFilterDiag(val) {
+        switchTab('tab4');
+        document.getElementById('personaFilter').value = val;
+        applyFilters();
+        document.getElementById('studentTable').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function applyFilters() {
+        const sText = document.getElementById('searchInput').value.toLowerCase().trim();
+        const cVal = document.getElementById('classFilter').value;
+        const tVal = document.getElementById('tierFilter').value;
+        const pVal = document.getElementById('personaFilter').value.toLowerCase();
+
+        const rows = document.querySelectorAll('#studentTableBody tr');
+        let count = 0;
+
+        rows.forEach(r => {
+            const name = r.getAttribute('data-name');
+            const cName = r.getAttribute('data-class');
+            const tier = r.getAttribute('data-tier');
+            const persona = r.getAttribute('data-persona').toLowerCase();
+
+            const matchSearch = !sText || name.includes(sText);
+            const matchClass = !cVal || cName === cVal;
+            const matchTier = tVal === "" || tier === tVal;
+            const matchPersona = !pVal || persona.includes(pVal);
+
+            if (matchSearch && matchClass && matchTier && matchPersona) {
+                r.style.display = '';
+                count++;
+            } else {
+                r.style.display = 'none';
+            }
+        });
+
+        document.getElementById('recCount').innerText = count;
+    }
+
+    const ctx1 = document.getElementById('classChartQ').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ["HN-K25-QTKD1", "HN-K25-QTKD2", "HN-K25-QTKD3"],
+            datasets: [{
+                label: 'Điểm TB Final (/10)',
+                data: [7.39, 6.7, 7.54],
+                backgroundColor: 'rgba(245,158,11,0.7)',
+                borderColor: '#f59e0b',
+                borderWidth: 1.5, borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, max: 10, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('tierDistChartQ').getContext('2d');
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Mức 3 - Làm Chủ Tốt', 'Mức 2 - Chuẩn Doanh Nghiệp', 'Mức 1 - Cơ Bản', 'Mức 0 - Chưa Đạt / Vắng'],
+            datasets: [{
+                data: [
+                    1,
+                    60,
+                    30,
+                    12
+                ],
+                backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#f43f5e'],
+                borderWidth: 2, borderColor: '#171820'
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } }
+        }
+    });
+    </script>
+</body>
+</html>
